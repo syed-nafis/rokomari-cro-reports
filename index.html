@@ -1,0 +1,4091 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rokomari — A/B Test Report · April 2026</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=DM+Mono:wght@400;500&display=swap');
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #ffffff;
+      --bg2: #f7f7f6;
+      --bg3: #f0efed;
+      --text: #1a1a18;
+      --text2: #5a5a56;
+      --text3: #9a9a94;
+      --border: rgba(0, 0, 0, 0.09);
+      --border2: rgba(0, 0, 0, 0.18);
+      --green: #1D9E75;
+      --green-bg: #E1F5EE;
+      --green-dark: #0F6E56;
+      --red: #E24B4A;
+      --red-bg: #FCEBEB;
+      --red-dark: #A32D2D;
+      --amber: #BA7517;
+      --amber-bg: #FAEEDA;
+      --amber-dark: #854F0B;
+      --blue: #185FA5;
+      --blue-bg: #E6F1FB;
+      --blue-dark: #0C447C;
+      --gray-bg: #F1EFE8;
+      --gray-dark: #5F5E5A;
+      --radius: 10px;
+      --radius-sm: 6px;
+      --mono: 'DM Mono', 'Courier New', monospace;
+      --sans: 'DM Sans', -apple-system, sans-serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1c1c1a;
+        --bg2: #242422;
+        --bg3: #2c2c2a;
+        --text: #f0ede8;
+        --text2: #a8a89e;
+        --text3: #6a6a62;
+        --border: rgba(255, 255, 255, 0.08);
+        --border2: rgba(255, 255, 255, 0.16);
+        --green-bg: #085041;
+        --green-dark: #9FE1CB;
+        --red-bg: #791F1F;
+        --red-dark: #F7C1C1;
+        --amber-bg: #633806;
+        --amber-dark: #FAC775;
+        --blue-bg: #0C447C;
+        --blue-dark: #B5D4F4;
+        --gray-bg: #3a3a36;
+        --gray-dark: #D3D1C7;
+      }
+    }
+
+    html {
+      font-size: 14px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem 5rem;
+    }
+
+    /* ── Header ── */
+    .header {
+      padding: 3rem 0 2rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 3rem;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .header-eyebrow {
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text3);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 2px;
+      background: var(--green);
+      border-radius: 2px;
+    }
+
+    .header-title {
+      font-size: 28px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .header-sub {
+      font-size: 14px;
+      color: var(--text2);
+      margin-top: 6px;
+    }
+
+    .header-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 5px 12px;
+      border-radius: 99px;
+      border: 1px solid var(--border2);
+      color: var(--text2);
+      background: var(--bg2);
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    /* ── Sections ── */
+    .section {
+      margin-bottom: 3.5rem;
+    }
+
+    .section-label {
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text);
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── KPI ── */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+      gap: 12px;
+    }
+
+    .kpi {
+      background: var(--bg2);
+      border-radius: var(--radius-sm);
+      padding: 1.1rem 1.25rem;
+    }
+
+    .kpi-label {
+      font-size: 18px;
+      color: var(--text2);
+      margin-bottom: 5px;
+    }
+
+    .kpi-value {
+      font-size: 26px;
+      font-weight: 500;
+      font-family: var(--mono);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+
+    .kpi-delta {
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .pos {
+      color: var(--green);
+    }
+
+    .neg {
+      color: var(--red);
+    }
+
+    .neutral {
+      color: var(--text3);
+    }
+
+    /* ── Experiment Card ── */
+    .exp-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 20px;
+      overflow: hidden;
+      transition: box-shadow 0.15s;
+    }
+
+    .exp-card:hover {
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.07);
+    }
+
+    /* Row 1: experiment header */
+    .exp-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.25rem 1.5rem 1rem;
+    }
+
+    .exp-name {
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .exp-hypo {
+      font-size: 14px;
+      color: var(--text2);
+      line-height: 1.5;
+    }
+
+    .exp-meta {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      color: var(--text2);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .tag-blue {
+      background: var(--blue-bg);
+      color: var(--blue-dark);
+      border-color: transparent;
+    }
+
+    .tag-green {
+      background: var(--green-bg);
+      color: var(--green-dark);
+      border-color: transparent;
+    }
+
+    .tag-amber {
+      background: var(--amber-bg);
+      color: var(--amber-dark);
+      border-color: transparent;
+    }
+
+    .tag-red {
+      background: var(--red-bg);
+      color: var(--red-dark);
+      border-color: transparent;
+    }
+
+    .tag-variants {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white;
+      border: none;
+      box-shadow: 0 2px 4px rgba(99, 102, 241, 0.2);
+    }
+
+    .tag-warn {
+      background: var(--amber-bg);
+      color: var(--amber-dark);
+      border-color: transparent;
+    }
+
+    .link-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: var(--blue-bg);
+      border: 1px solid var(--border2);
+      border-radius: 6px;
+      color: var(--blue-dark);
+      font-size: 12px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      margin-top: 8px;
+    }
+
+    .link-chip:hover {
+      background: var(--bg3);
+      border-color: var(--blue);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 14px;
+      border-radius: 99px;
+      font-size: 12px;
+      font-weight: 500;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .pill-ship {
+      background: var(--green-bg);
+      color: var(--green-dark);
+    }
+
+    .pill-iterate {
+      background: var(--amber-bg);
+      color: var(--amber-dark);
+    }
+
+    .pill-scale {
+      background: var(--blue-bg);
+      color: var(--blue-dark);
+    }
+
+    .pill-inconclusive {
+      background: var(--gray-bg);
+      color: var(--gray-dark);
+    }
+
+    .pill-running {
+      background: var(--red-bg);
+      color: var(--red-dark);
+    }
+
+    .pill-extend {
+      background: var(--amber-bg);
+      color: var(--amber-dark);
+    }
+
+    /* Row 2 & 3: results & screenshots dropdowns */
+    .exp-results,
+    .exp-screenshots {
+      border-top: 1px solid var(--border);
+      display: block;
+    }
+
+    .exp-results summary,
+    .exp-screenshots summary {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--green);
+      padding: 10px 1.5rem 8px;
+      background: var(--bg2);
+      outline: none;
+      user-select: none;
+    }
+
+    .exp-results summary::-webkit-details-marker,
+    .exp-screenshots summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .exp-results summary::after,
+    .exp-screenshots summary::after {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-right: 2px solid var(--green);
+      border-bottom: 2px solid var(--green);
+      transform: rotate(45deg);
+      transition: transform 0.2s ease;
+      margin-right: 8px;
+    }
+
+    .exp-results[open] summary,
+    .exp-screenshots[open] summary {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .exp-results[open] summary::after,
+    .exp-screenshots[open] summary::after {
+      transform: rotate(-135deg);
+    }
+
+    .results-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .results-table thead th {
+      background: var(--bg2);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text);
+      padding: 8px 1.5rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .results-table tbody tr:not(:last-child) td {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .results-table tbody tr:hover td {
+      background: var(--bg2);
+    }
+
+    .results-table td {
+      padding: 9px 1.5rem;
+      vertical-align: middle;
+    }
+
+    .td-metric {
+      color: var(--text);
+    }
+
+    .td-control {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--text);
+    }
+
+    .metric-chip {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 2px 9px;
+      border-radius: 4px;
+    }
+
+    .chip-pos {
+      background: var(--green-bg);
+      color: var(--green-dark);
+    }
+
+    .chip-neg {
+      background: var(--red-bg);
+      color: var(--red-dark);
+    }
+
+    .chip-neu {
+      background: var(--bg3);
+      color: var(--text2);
+    }
+
+    .chip-warn {
+      background: var(--amber-bg);
+      color: var(--amber-dark);
+    }
+
+    .chip-best {
+      background: var(--green-bg);
+      color: var(--green-dark);
+      outline: 1.5px solid var(--green);
+    }
+
+    .screenshots-grid {
+      display: flex;
+      gap: 12px;
+      padding: 14px 1.5rem;
+      overflow-x: auto;
+    }
+
+    .ss-thumb {
+      flex: 0 0 auto;
+      height: 380px;
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 1.5px solid var(--border);
+      transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+      position: relative;
+      background: var(--bg2);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ss-thumb:hover {
+      border-color: var(--green);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    }
+
+    .ss-thumb img {
+      height: calc(100% - 28px);
+      width: auto;
+      object-fit: contain;
+      display: block;
+      background: var(--bg3);
+    }
+
+    /* placeholder when no src */
+    .ss-thumb .ss-placeholder {
+      height: calc(100% - 28px);
+      min-width: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: var(--bg3);
+      color: var(--text3);
+      font-size: 12px;
+    }
+
+    .ss-placeholder svg {
+      opacity: 0.4;
+    }
+
+    .ss-label {
+      padding: 6px 10px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text2);
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      letter-spacing: 0.03em;
+    }
+
+    .ss-badge {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      background: rgba(0, 0, 0, 0.55);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 500;
+      padding: 2px 7px;
+      border-radius: 3px;
+      letter-spacing: 0.04em;
+      backdrop-filter: blur(4px);
+    }
+
+    .ss-expand-icon {
+      position: absolute;
+      bottom: 38px;
+      right: 6px;
+      background: rgba(0, 0, 0, 0.45);
+      color: #fff;
+      border-radius: 4px;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+
+    .ss-thumb:hover .ss-expand-icon {
+      opacity: 1;
+    }
+
+    /* ── Lightbox / Carousel ── */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.88);
+      z-index: 9000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+
+    .lightbox.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .lb-inner {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .lb-img-wrap {
+      position: relative;
+      max-height: 78vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lb-img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 8px;
+      object-fit: contain;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+      display: block;
+    }
+
+    /* placeholder if img has no src */
+    .lb-placeholder {
+      width: 360px;
+      height: 560px;
+      max-width: 88vw;
+      max-height: 78vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      border-radius: 8px;
+      background: #2a2a28;
+      color: #888;
+      font-size: 14px;
+      font-family: var(--sans);
+    }
+
+    .lb-controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .lb-btn {
+      background: rgba(255, 255, 255, 0.12);
+      border: none;
+      color: #fff;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      transition: background 0.15s;
+      flex-shrink: 0;
+    }
+
+    .lb-btn:hover {
+      background: rgba(255, 255, 255, 0.22);
+    }
+
+    .lb-btn:disabled {
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    .lb-caption {
+      color: #fff;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 500;
+      text-align: center;
+      min-width: 160px;
+    }
+
+    .lb-caption-sub {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+      margin-top: 2px;
+      text-align: center;
+    }
+
+    .lb-dots {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      margin-top: -4px;
+    }
+
+    .lb-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      transition: background 0.15s, transform 0.15s;
+    }
+
+    .lb-dot.active {
+      background: #fff;
+      transform: scale(1.3);
+    }
+
+    .lb-close {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.12);
+      border: none;
+      color: #fff;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+
+    .lb-close:hover {
+      background: rgba(255, 255, 255, 0.22);
+    }
+
+    .lb-counter {
+      position: fixed;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255, 255, 255, 0.55);
+      font-size: 13px;
+      font-family: var(--mono);
+    }
+
+    /* ── Insights ── */
+    .insight {
+      display: flex;
+      gap: 14px;
+      padding: 1.1rem 1.25rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 10px;
+      align-items: center;
+    }
+
+    .insight-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: var(--radius-sm);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ii-win {
+      background: var(--green-bg);
+    }
+
+    .ii-warn {
+      background: var(--amber-bg);
+    }
+
+    .insight-title {
+      font-weight: 500;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .insight-body {
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.6;
+    }
+
+    /* ── Chart ── */
+    .chart-wrap {
+      position: relative;
+      width: 100%;
+      height: 240px;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      font-size: 12px;
+      color: var(--text2);
+      margin-bottom: 12px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .legend-swatch {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+    }
+
+    /* ── Next Steps ── */
+    .next-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .next-table th {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--text3);
+      padding: 8px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .next-table td {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    .next-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .next-table tr:hover td {
+      background: var(--bg2);
+    }
+
+    .priority {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .p-high {
+      background: var(--red-bg);
+      color: var(--red-dark);
+    }
+
+    .p-med {
+      background: var(--amber-bg);
+      color: var(--amber-dark);
+    }
+
+    .p-low {
+      background: var(--gray-bg);
+      color: var(--gray-dark);
+    }
+
+    /* ── Footer ── */
+    .footer {
+      font-size: 12px;
+      color: var(--text3);
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      line-height: 1.7;
+    }
+
+    .insight-list {
+      padding: 0 1.5rem 1.5rem 3.5rem;
+      margin: 0;
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.6;
+    }
+
+    .insight-list li {
+      margin-bottom: 8px;
+    }
+
+    .insight-list li:last-child {
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- HEADER -->
+    <header class="header">
+      <div>
+        <div class="header-eyebrow">Experimentation Report</div>
+        <div class="header-title">A/B Test Summary — April 2026</div>
+        <div class="header-sub">Rokomari.com &nbsp;·&nbsp; CRO Team &nbsp;·&nbsp; Powered by GrowthBook</div>
+      </div>
+      <div class="header-right">
+        <div class="badge"><span class="badge-dot"></span> Monthly Report</div>
+        <div class="badge" style="border-color:transparent;color:var(--text3);font-size:11px;">Prepared: April 30, 2026
+        </div>
+      </div>
+    </header>
+
+    <!-- EXECUTIVE SUMMARY -->
+    <section class="section">
+      <div class="section-label">Executive summary</div>
+      <div class="kpi-grid">
+        <div class="kpi">
+          <div class="kpi-label">Experiments run</div>
+          <div class="kpi-value" style="padding: 5px 0;">12</div>
+          <div class="kpi-delta neutral">April 2026</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Idea Backlog</div>
+          <div class="kpi-value" style="padding: 5px 0;color:var(--red);">35</div>
+          <div class="kpi-delta neutral"> + 13 since March</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Est. revenue impact</div>
+          <div class="kpi-value pos" style="padding: 5px 0;">৳2,22,434</div>
+          <div class="kpi-delta neutral" style="padding-left: 3px;">/ month (projected)</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Test outcomes</div>
+          <div class="kpi-value" style="padding: 5px 0; font-size: 15px; line-height: 1.6;">
+            <span style="color:#1D9E75;">4 ✓</span> &middot;
+            <span style="color:#E5484D;">2 ✗</span> &middot;
+            <span style="color:#3B82F6;">2 ↗</span> &middot;
+            <span style="color:#F59E0B;">4 ↻</span>
+          </div>
+          <div class="kpi-delta neutral">positive · negative · scale · extend</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Implemented queue</div>
+          <div class="kpi-value" style="padding: 5px 0;">7</div>
+          <div class="kpi-delta neutral">tests waiting to go live</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIFT CHART -->
+    <section class="section">
+      <div class="section-label">Primary metric lift (best 5 experiments)</div>
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-swatch" style="background:#1D9E75;"></div> Positive lift
+        </div>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="liftChart"></canvas>
+      </div>
+    </section>
+
+
+    <!-- EXPERIMENTS -->
+    <section class="section">
+      <div class="section-label">Experiment deep-dives</div>
+
+      <!-- ═══════════════════════════════════════════
+         EXP 1 — Extra-discount books nav
+    ═══════════════════════════════════════════ -->
+      <div class="exp-card">
+        <!-- Row 1: header -->
+        <div class="exp-header">
+          <div>
+            <div class="exp-name">1. Extra-discount books — navigation visibility</div>
+            <div class="exp-hypo">The extra-discount is a running deal section for our book category which was hard to
+              navigate to (almost invisible in mobile-view). In mobile view, which gets around x5 active-users/day than
+              desktop, the section was almost
+              invisible. Surfacing it in the main navigation should increase views and total purchases from this
+              section. (Even though this went live earlier - the results were not presentable at that time due to data
+              limitations)</div>
+            <div class="exp-meta">
+              <span class="tag">Mobile</span><span class="tag">Desktop</span><span class="tag">79 days</span><span
+                class="tag tag-variants">1 Variant</span>
+            </div>
+          </div>
+          <span class="status-pill pill-ship">✓ Shipped A</span>
+        </div>
+        <!-- Row 2: screenshots -->
+        <details class="exp-screenshots" open>
+          <summary>Screenshots</summary>
+          <div class="screenshots-grid">
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp1" data-index="0">
+              <img src="https://i.postimg.cc/s2J2K3fj/extra-discount-books-control.png" alt="Control - Desktop"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Control - Desktop</div>
+              <div class="ss-badge">Control</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp1" data-index="1">
+              <img src="https://i.postimg.cc/QMqMSjNx/extra-discount-books-a.png" alt="Variant A - Desktop"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant A - Desktop</div>
+              <div class="ss-badge">Variant A</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp1" data-index="2">
+              <img src="https://i.postimg.cc/mrSrVTZ4/extra-discount-books-control-mobile.png" alt="Control - Mobile"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Control - Mobile</div>
+              <div class="ss-badge">Control</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp1" data-index="3">
+              <img src="https://i.postimg.cc/YSxS8t2H/extradiscount-books-a-mobile.png" alt="Variant A - Mobile"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant A - Mobile</div>
+              <div class="ss-badge">Variant A</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+          </div>
+        </details>
+        <!-- Row 3: results -->
+        <details class="exp-results">
+          <summary>Results</summary>
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th style="width:38%">Metric</th>
+                <th style="width:28%">Control value</th>
+                <th>Variant A</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="td-metric">Page views / day</td>
+                <td class="td-control">284.35 /day</td>
+                <td><span class="metric-chip chip-best">× 1.46 up</span></td>
+              </tr>
+              <tr>
+                <td class="td-metric">view_item rate</td>
+                <td class="td-control">32.7%</td>
+                <td><span class="metric-chip chip-pos">+ 24.4%</span></td>
+              </tr>
+              <tr>
+                <td class="td-metric">ATC rate</td>
+                <td class="td-control">11.0%</td>
+                <td><span class="metric-chip chip-pos">+ 10.3%</span></td>
+              </tr>
+              <tr>
+                <td class="td-metric">Avg orders / month</td>
+                <td class="td-control">110 order </td>
+                <td>
+                  <span class="metric-chip chip-pos">+ 0.508% </span>
+                </td>
+              </tr>
+              <tr>
+                <td class="td-metric">Net revenue generated / month </td>
+                <td class="td-control"> AOV = ৳ 466.68 </td>
+                <td>
+                  <span class="metric-chip chip-best">৳ 51,334 </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </details>
+        <details class="exp-results">
+          <summary>Key Insights</summary>
+          <div style="padding: 1rem 1.5rem 1.5rem 1.5rem; display: flex; flex-direction: column; gap: 10px;">
+            <div class="insight" style="margin-bottom: 0;">
+              <div class="insight-icon ii-win"><svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path d="M2.5 8L6 11.5L12.5 4" stroke="#0F6E56" stroke-width="1.6" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg></div>
+              <div>
+                <div class="insight-body">Monthly orders and AOV metrics exclude February to prevent data skew from peak
+                  book sales.</div>
+              </div>
+            </div>
+            <div class="insight" style="margin-bottom: 0;">
+              <div class="insight-icon ii-win"><svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path d="M2.5 8L6 11.5L12.5 4" stroke="#0F6E56" stroke-width="1.6" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg></div>
+              <div>
+                <div class="insight-body">Performance remained positive despite significant dips in book orders
+                  surrounding Eid.</div>
+              </div>
+            </div>
+            <div class="insight" style="margin-bottom: 0;">
+              <div class="insight-icon ii-warn"><svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path d="M7.5 3.5V8M7.5 10.5V11" stroke="#854F0B" stroke-width="1.6" stroke-linecap="round" />
+                </svg></div>
+              <div>
+                <div class="insight-body">Sold-count was slightly lower; need to investigate root cause.</div>
+
+              </div>
+            </div>
+        </details>
+      </div>
+
+      <!-- ═══════════════════════════════════════════
+         EXP 4 — Foreign book price category
+    ═══════════════════════════════════════════ -->
+      <div class="exp-card">
+        <div class="exp-header">
+          <div>
+            <div class="exp-name">4. Foreign book price-category — section redesign</div>
+            <div class="exp-hypo">In the inital design the intent that this was a clearance sales section was not clear,
+              and "Foreign Books" text repeated for each section. A new design for the foreign-book-price-category
+              section to increase CTR.</div>
+            <div class="exp-meta">
+              <span class="tag">Desktop</span><span class="tag">Mobile</span><span class="tag">15 days</span><span
+                class="tag tag-variants">2 Variants</span>
+            </div>
+          </div>
+          <span class="status-pill pill-ship">✓ Ship Light</span>
+        </div>
+        <details class="exp-screenshots">
+          <summary>Screenshots</summary>
+          <div class="screenshots-grid">
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp4" data-index="0">
+              <img src="https://i.imgur.com/aDmP19p.jpeg" alt="Control - Desktop"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Control - Desktop</div>
+              <div class="ss-badge">Control</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp4" data-index="1">
+              <img src="https://i.imgur.com/8l4BNDu.jpeg" alt="Control - Mobile"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Control - Mobile</div>
+              <div class="ss-badge">Control</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp4" data-index="2">
+              <img src="https://i.imgur.com/7IFN4CA.jpeg" alt="Filled - Desktop"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Filled - Desktop</div>
+              <div class="ss-badge">Filled</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp4" data-index="3">
+              <img src="https://i.imgur.com/f4P0sa0.jpeg" alt="Filled - Mobile"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Filled - Mobile</div>
+              <div class="ss-badge">Filled</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp4" data-index="4">
+              <img src="https://i.imgur.com/69Vs9CC.png" alt="Light - Desktop"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Light - Desktop</div>
+              <div class="ss-badge">Light</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp4" data-index="5">
+              <img src="https://i.imgur.com/Sretppb.jpeg" alt="Light - Mobile"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Light - Mobile</div>
+              <div class="ss-badge">Light</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+          </div>
+        </details>
+        <details class="exp-results">
+          <summary>Results</summary>
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th style="width:38%">Metric</th>
+                <th style="width:20%">Control value</th>
+                <th>Filled colour</th>
+                <th>Light colour</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="td-metric">Participants (experimeent viewed)</td>
+                <td class="td-control">72,928</td>
+                <td><span class="td-metric">51,963</span></td>
+                <td><span class="td-metric">45,634</span></td>
+              </tr>
+              <tr>
+                <td class="td-metric">Section CTR</td>
+                <td class="td-control">1.52% (1,199)</td>
+                <td><span class="metric-chip chip-best">× 2.91 lift</span> (2,166)</td>
+                <td><span class="metric-chip chip-best">× 2.45 lift</span> (1,701)</td>
+              </tr>
+              <tr>
+                <td class="td-metric">Purchase Rate</td>
+                <td class="td-control">0.07% (54 orders)</td>
+                <td><span class="metric-chip chip-best">+ 0.1 %</span> + 35 orders</td>
+                <td><span class="metric-chip chip-best">+ 0.14 %</span> + 43 orders</td>
+              </tr>
+              <tr>
+                <td class="td-metric">Net revenue generated / month</td>
+                <td class="td-control">
+                  AOV = ৳ 682.20 <br>
+                  <span>Daily orders = + 2.87</span>
+                </td>
+                <td><span class="metric-chip chip-pos">৳ 47,754.00</span></td>
+                <td><span class="metric-chip chip-best">৳ 58,669.20</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </details>
+        <details class="exp-results">
+          <summary>Key Insights</summary>
+          <div style="padding: 1rem 1.5rem 1.5rem 1.5rem; display: flex; flex-direction: column; gap: 10px;">
+            <div class="insight" style="margin-bottom: 0;">
+              <div class="insight-icon ii-win"><svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path d="M2.5 8L6 11.5L12.5 4" stroke="#0F6E56" stroke-width="1.6" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg></div>
+              <div>
+                <div class="insight-body">High customer engagement in 'Under 99' and 'Free Shipping' categories. (almost
+                  x4 of the other 2 categories) These can be effect Book Sales Categories.</div>
+              </div>
+            </div>
+            <div class="insight" style="margin-bottom: 0;">
+              <div class="insight-icon ii-warn"><svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path d="M7.5 3.5V8M7.5 10.5V11" stroke="#854F0B" stroke-width="1.6" stroke-linecap="round" />
+                </svg></div>
+              <div>
+                <div class="insight-body">Sections has recently been removed</div>
+              </div>
+            </div>
+            <div class="insight" style="margin-bottom: 0;">
+              <div class="insight-icon ii-win"><svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path d="M2.5 8L6 11.5L12.5 4" stroke="#0F6E56" stroke-width="1.6" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg></div>
+              <div>
+                <div class="insight-body">Archive the winning variant for future re-introduction.</div>
+
+                </tbody>
+                </table>
+        </details>
+      </div>
+
+      <!-- ═══════════════════════════════════════════
+         EXP 6 — QuickDeal badge
+    ═══════════════════════════════════════════ -->
+      <div class="exp-card">
+        <div class="exp-header">
+          <div>
+            <div class="exp-name">6. QuickDeal badge — related products section</div>
+            <div class="exp-hypo">Items in related products eligible for QuickDeal don't show the badge. Showing it
+              should increase CTR and ATC, leading to an increased purchases from quick deal section.</div>
+            <div class="exp-meta">
+              <span class="tag">Desktop</span><span class="tag">10 days</span><span class="tag tag-variants">2
+                Variants</span>
+            </div>
+          </div>
+          <span class="status-pill pill-ship">✓ Ship B</span>
+        </div>
+        <details class="exp-screenshots">
+          <summary>Screenshots</summary>
+          <div class="screenshots-grid">
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp6" data-index="0">
+              <img src="https://i.imgur.com/yhiM92s.jpeg" alt="Control"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Control</div>
+              <div class="ss-badge">Control</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp6" data-index="1">
+              <img src="https://i.imgur.com/ZOlzDdf.jpeg" alt="Variant A"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant A ★</div>
+              <div class="ss-badge">Variant A ✓</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp6" data-index="2">
+              <img src="https://i.imgur.com/9Xu7VIv.jpeg" alt="Variant B"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant B</div>
+              <div class="ss-badge">Variant B</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+          </div>
+        </details>
+        <details class="exp-results">
+          <summary>Results</summary>
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th style="width:25%">Metric</th>
+                <th style="width:20%">Control value</th>
+                <th>Variant A</th>
+                <th>Variant B</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="td-metric">Participants</td>
+                <td class="td-control">12,275</td>
+                <td><span class="td-metric">10,187</span></td>
+                <td><span class="td-metric">9,911</span></td>
+              </tr>
+              <tr>
+                <td class="td-metric">Section CTR</td>
+                <td class="td-control">4.95% (607)</td>
+                <td><span class="metric-chip chip-pos">+ 0.09%</span></td>
+                <td><span class="metric-chip chip-neg">− 0.18%</span></td>
+              </tr>
+              <tr>
+                <td class="td-metric">Add to cart (ATC) rate</td>
+                <td class="td-control">1.41%</td>
+                <td><span class="metric-chip chip-pos">+ 0.08%</span></td>
+                <td><span class="metric-chip chip-pos">+ 0.12%</span></td>
+              </tr>
+              <tr>
+                <td class="td-metric">Purchase rate</td>
+                <td class="td-control">0.25% (31)</td>
+                <td><span class="metric-chip chip-neg">0.28%</span> (− 2 orders)</td>
+                <td><span class="metric-chip chip-best">0.47%</span> (+ 16 orders) ★</td>
+              </tr>
+              <tr>
+                <td class="td-metric">Net revenue generated / month</td>
+                <td class="td-control">
+                  AOV = ৳ 1,065.69 <br>
+                  <span>Daily orders = + 1.6</span>
+                </td>
+                <td><span>—</span></td>
+                <td><span class="metric-chip chip-best">৳ 51,153.12 ★</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </details>
+        <details class="exp-results">
+          <summary>Key Insights</summary>
+          <div style="padding: 1rem 1.5rem 1.5rem 1.5rem; display: flex; flex-direction: column; gap: 10px;">
+            <div class="insight" style="margin-bottom: 0;">
+              <div class="insight-icon ii-warn"><svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path d="M7.5 3.5V8M7.5 10.5V11" stroke="#854F0B" stroke-width="1.6" stroke-linecap="round" />
+                </svg></div>
+              <div>
+                <div class="insight-body"><strong>Tracking Dilution:</strong> Users are correctly bucketed into
+                  variants, but the experiment is "diluted" when the viewed product lacks a Quick-Deal item in the first
+                  pagination. This leads to users being in a variant without actually experiencing the feature.</div>
+              </div>
+            </div>
+            <div class="insight" style="margin-bottom: 0;">
+              <div class="insight-icon ii-win"><svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path d="M2.5 8L6 11.5L12.5 4" stroke="#0F6E56" stroke-width="1.6" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg></div>
+              <div>
+                <div class="insight-body"><strong>Next Step:</strong> Launch a new experiment that re-ranks related
+                  products to force "Quick-Deal" items into the first pagination. This will maximize visibility and
+                  minimize data noise from bucketed users who never see the treatment.</div>
+
+              </div>
+            </div>
+        </details>
+      </div>
+
+      <!-- ═══════════════════════════════════════════
+         EXP 9 — Savings font
+    ═══════════════════════════════════════════ -->
+      <div class="exp-card">
+        <div class="exp-header">
+          <div>
+            <div class="exp-name">9. You-are-saving — font size optimisation</div>
+            <div class="exp-hypo">A more prominent savings amount nudges purchase intent. The current font size seems
+              too small for our avg users. Bigger font should increase
+              ATC and purchase rate.</div>
+            <div class="exp-meta">
+              <span class="tag">Mobile</span><span class="tag">12 days</span><span class="tag tag-variants">3
+                Variants</span>
+            </div>
+          </div>
+          <span class="status-pill pill-ship">✓ Ship A</span>
+        </div>
+        <details class="exp-screenshots">
+          <summary>Screenshots</summary>
+          <div class="screenshots-grid">
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp9" data-index="0">
+              <img src="https://i.postimg.cc/jjGSCJDD/Screenshot-2026-05-06-at-1-43-47-PM.png" alt="Control"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Control</div>
+              <div class="ss-badge">Control</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp9" data-index="1">
+              <img src="https://i.postimg.cc/fb6Rk0Vm/Screenshot-2026-05-06-at-1-44-08-PM.png" alt="Variant A"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant A</div>
+              <div class="ss-badge">Variant A</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp9" data-index="2">
+              <img src="https://i.postimg.cc/hGHth7Xx/Screenshot-2026-05-06-at-1-47-20-PM.png" alt="Variant B"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant B</div>
+              <div class="ss-badge">Variant B</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp9" data-index="3">
+              <img src="https://i.postimg.cc/hGHth7XV/Screenshot-2026-05-06-at-1-55-47-PM.png" alt="Variant C"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant C</div>
+              <div class="ss-badge">Variant C</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+          </div>
+        </details>
+        <details class="exp-results">
+          <summary>Results</summary>
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th style="width:25%">Metric</th>
+                <th style="width:20%">Control</th>
+                <th>A</th>
+                <th>B</th>
+                <th>C</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="td-metric">Participants</td>
+                <td class="td-control">39,836</td>
+                <td><span class="td-metric">40,038</span></td>
+                <td><span class="td-metric">39,706</span></td>
+                <td><span class="td-metric">40,061</span></td>
+              </tr>
+              <tr>
+                <td class="td-metric">ATC Rate</td>
+                <td class="td-control">9.48% (3,778)</td>
+                <td><span class="metric-chip chip-pos">+ 0.35%</span></td>
+                <td><span class="metric-chip chip-pos">+ 0.35%</span></td>
+                <td><span class="metric-chip chip-best">+ 0.51% ★</span></td>
+              </tr>
+              <tr>
+                <td class="td-metric">Purchase Rate</td>
+                <td class="td-control">2.36% (941)</td>
+                <td><span class="metric-chip chip-pos">2.41%</span> (+ 23 orders)</td>
+                <td><span class="metric-chip chip-neg">2.21%</span> (− 64 orders)</td>
+                <td><span class="metric-chip chip-neg">2.34%</span> (− 4 orders)</td>
+              </tr>
+              <tr>
+                <td class="td-metric">Net revenue generated / month</td>
+                <td class="td-control">
+                  AOV = ৳ 1,065.69 <br>
+                  <span>Daily orders = + 1.92</span>
+                </td>
+                <td><span class="metric-chip chip-best">৳ 61,277.18 ★</span></td>
+                <td><span>—</span></td>
+                <td><span>—</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </details>
+      </div>
+
+      <!-- ═══════════════════════════════════════════
+         EXP 2 — Checkout summary
+    ═══════════════════════════════════════════ -->
+      <div class="exp-card">
+        <div class="exp-header">
+          <div>
+            <div class="exp-name">2. Checkout summary — clarity redesign</div>
+            <div class="exp-hypo">On our mobile shipping page, the checkout summary was hidden behind a toggle, showing
+              only the total amount, which might not be intuitive for alot of our users, leading to high back navigation
+              rate to the cart page, where the checkout summary is clearly visible, so we redesigned the checkout
+              summary section to be clearly visible on the shipping page itself, which should reduce back navigation to
+              the cart page, and leading to increased CR</div>
+            <div class="exp-meta">
+              <span class="tag">Mobile</span><span class="tag">4 days</span><span class="tag tag-warn">⚠
+                Iterate</span><span class="tag tag-variants">1 Variant</span>
+            </div>
+          </div>
+          <span class="status-pill pill-iterate">↺ Iterate</span>
+        </div>
+        <details class="exp-screenshots">
+          <summary>Screenshots</summary>
+          <div class="screenshots-grid">
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp2" data-index="0">
+              <img src="https://i.imgur.com/QJ5NKT6.jpeg" alt="Control"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Control 1</div>
+              <div class="ss-badge">Control</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp2" data-index="1">
+              <img src="https://i.imgur.com/rPwnZZT.png" alt="Control"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Control 2</div>
+              <div class="ss-badge">Control</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp2" data-index="2">
+              <img src="https://i.imgur.com/wtxbCQh.jpeg" alt="Variant A"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant A</div>
+              <div class="ss-badge">Variant A</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+          </div>
+        </details>
+        <details class="exp-results">
+          <summary>Results</summary>
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th style="width:38%">Metric</th>
+                <th style="width:28%">Control value</th>
+                <th>Variant A</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="td-metric">Participants</td>
+                <td class="td-control">3132</td>
+                <td><span class="metric-chip chip-pos">2895</span></td>
+              </tr>
+              <tr>
+                <td class="td-metric">Checkout conversion rate (CR)</td>
+                <td class="td-control">63.3 % (1984 orders)</td>
+                <td><span class="metric-chip chip-neg">− 2.1 %</span> (-40 orders)</td>
+              </tr>
+              <tr>
+                <td class="td-metric">Back-navigation rate</td>
+                <td class="td-control">28.6%</td>
+                <td><span class="metric-chip chip-pos">− 0.9 %</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </details>
+        <details class="exp-results">
+          <summary>Key Insights</summary>
+          <div style="padding: 1rem 1.5rem 1.5rem 1.5rem; display: flex; flex-direction: column; gap: 10px;">
+            <div class="insight" style="margin-bottom: 0;">
+              <div class="insight-icon ii-win"><svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path d="M7.5 3.5V8M7.5 10.5V11" stroke="#854F0B" stroke-width="1.6" stroke-linecap="round" />
+                </svg></div>
+              <div>
+                <div class="insight-body">Reduced back navigation but negatively impacted Conversion Rate (CR).</div>
+              </div>
+            </div>
+            <div class="insight" style="margin-bottom: 0;">
+              <div class="insight-icon ii-warn"><svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path d="M7.5 3.5V8M7.5 10.5V11" stroke="#854F0B" stroke-width="1.6" stroke-linecap="round" />
+                </svg></div>
+              <div>
+                <div class="insight-body">Explicit price breakdowns prior to payment likely triggered user hesitation.
+                </div>
+              </div>
+            </div>
+            <div class="insight" style="margin-bottom: 0;">
+              <div class="insight-icon ii-warn"><svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path d="M7.5 3.5V8M7.5 10.5V11" stroke="#854F0B" stroke-width="1.6" stroke-linecap="round" />
+                </svg></div>
+              <div>
+                <div class="insight-body">Next steps: Test hidden dropdowns for checkout summary and placement
+                  (above/below payment methods).</div>
+
+              </div>
+            </div>
+        </details>
+      </div>
+
+      <!-- ═══════════════════════════════════════════
+         EXP 5 — Show rating number
+    ═══════════════════════════════════════════ -->
+      <div class="exp-card">
+        <div class="exp-header">
+          <div>
+            <div class="exp-name">5. Item cards — show exact rating number</div>
+            <div class="exp-hypo">Displaying the exact rating number on item cards reduces unnecessary browsing and
+              increases ATC rate and purchase rate.</div>
+            <div class="exp-meta">
+              <span class="tag">Mobile</span><span class="tag">11 day</span><span class="tag tag-warn"> keep current
+                design</span><span class="tag tag-variants">1 Variant</span>
+            </div>
+          </div>
+          <span class="status-pill pill-iterate">✗ Negative</span>
+        </div>
+        <details class="exp-screenshots">
+          <summary>Screenshots</summary>
+          <div class="screenshots-grid">
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp5" data-index="0">
+              <img src="https://i.imgur.com/L9KrGqT.jpeg" alt="Control"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Control</div>
+              <div class="ss-badge">Control</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp5" data-index="1">
+              <img src="https://i.imgur.com/4rmnIA8.jpeg" alt="Variant A"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant A</div>
+              <div class="ss-badge">Variant A</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+          </div>
+        </details>
+        <details class="exp-results">
+          <summary>Results</summary>
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th style="width:38%">Metric</th>
+                <th style="width:28%">Control value</th>
+                <th>Variant A</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="td-metric">Participants</td>
+                <td class="td-control">46,070</td>
+                <td><span class="td-metric">47,318</span></td>
+              </tr>
+              <tr>
+                <td class="td-metric">CTR</td>
+                <td class="td-control">33.34% (15,384)</td>
+                <td><span class="metric-chip chip-neg">− 0.04%</span></td>
+              </tr>
+              <tr>
+                <td class="td-metric">Add to cart (ATC) rate</td>
+                <td class="td-control">9.97%</td>
+                <td><span class="metric-chip chip-neg">− 0.19%</span></td>
+              </tr>
+              <tr>
+                <td class="td-metric">Purchase rate</td>
+                <td class="td-control">3.16% (1,457)</td>
+                <td><span class="metric-chip chip-neg">3.07% (− 6 orders)</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </details>
+      </div>
+
+      <!-- ═══════════════════════════════════════════
+         EXP 3 — Superstore ATC
+    ═══════════════════════════════════════════ -->
+      <div class="exp-card">
+        <div class="exp-header">
+          <div>
+            <div class="exp-name">3. Superstore — ATC button label (English vs Bangla)</div>
+            <div class="exp-hypo">In mobile-veiw, clicking on "Add to cart" button changes the button text to "Added to
+              cart" and subsequent clicks does not do anything. Changing the button text to "Go to Cart" / "কার্টে যান"
+              so the next click navigates
+              to our cart page. We tests both English and Bangla copy of the button text. (test implemented only for our
+              superstore page)</div>
+            <div class="exp-meta">
+              <span class="tag">Mobile</span><span class="tag">12 days</span><span class="tag tag-warn">Low participants
+                - need to sale test</span><span class="tag tag-variants">2 Variants</span>
+            </div>
+          </div>
+          <span class="status-pill pill-scale">↗ Scale test</span>
+        </div>
+        <details class="exp-screenshots">
+          <summary>Screenshots</summary>
+          <div class="screenshots-grid">
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp3" data-index="0">
+              <img src="https://i.imgur.com/5vCeEzy.jpeg" alt="Control"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Control</div>
+              <div class="ss-badge">Control</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp3" data-index="1">
+              <img src="https://i.imgur.com/qYu2rDF.jpeg" alt="English Variant"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">English Variant</div>
+              <div class="ss-badge">Variant A</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp3" data-index="2">
+              <img src="https://i.imgur.com/ohQLsOI.jpeg" alt="Bangla Variant"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Bangla Variant</div>
+              <div class="ss-badge">Variant B ★</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+          </div>
+        </details>
+        <details class="exp-results">
+          <summary>Results</summary>
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th style="width:30%">Metric</th>
+                <th style="width:25%">Control value</th>
+                <th>English</th>
+                <th>Bangla</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="td-metric">Participants (clicekd on ATC)</td>
+                <td class="td-control">210</td>
+                <td><span class="td-metric">71</span></td>
+                <td><span class="td-metric">53</span></td>
+              </tr>
+              <tr>
+                <td class="td-metric">View-cart rate</td>
+                <td class="td-control">46.76%</td>
+                <td><span class="metric-chip chip-pos">+12.8%</span></td>
+                <td><span class="metric-chip chip-best">+14.4% ★</span></td>
+              </tr>
+              <tr>
+                <td class="td-metric">Purchase rate</td>
+                <td class="td-control">1.44% (7 orders)</td>
+                <td>
+                  <span class="metric-chip chip-pos">+12.1%</span>
+                  <span> + 4 orders</span>
+                </td>
+                <td>
+                  <span class="metric-chip chip-best">+18.0% ★</span>
+                  <span> + 4 orders</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="td-metric">Net revenue generated / month </td>
+                <td class="td-control">
+                  <div> AOV = ৳ 1,065.96 </div>
+                  <span> Monthly orders = + 5.6 orders </span>
+                </td>
+                <td>
+                  <span class="metric-chip chip-best"> ৳ 5,969.38 </span>
+                </td>
+                <td>
+                  <span class="metric-chip chip-best"> ৳ 5,969.38 </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </details>
+        <details class="exp-results">
+          <summary>Key Insights</summary>
+          <div style="padding: 1rem 1.5rem 1.5rem 1.5rem; display: flex; flex-direction: column; gap: 10px;">
+            <div class="insight" style="margin-bottom: 0;">
+              <div class="insight-icon ii-warn"><svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path d="M7.5 3.5V8M7.5 10.5V11" stroke="#854F0B" stroke-width="1.6" stroke-linecap="round" />
+                </svg></div>
+              <div>
+                <div class="insight-body">Low visibility.</div>
+              </div>
+            </div>
+            <div class="insight" style="margin-bottom: 0;">
+              <div class="insight-icon ii-warn"><svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path d="M7.5 3.5V8M7.5 10.5V11" stroke="#854F0B" stroke-width="1.6" stroke-linecap="round" />
+                </svg></div>
+              <div>
+                <div class="insight-body">Re-run on high-traffic/high-visibility pages to gather actionable data.</div>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- ═══════════════════════════════════════════
+         EXP 7 — Item card price font
+    ═══════════════════════════════════════════ -->
+      <div class="exp-card">
+        <div class="exp-header">
+          <div>
+            <div class="exp-name">7. Item card — price font size increase</div>
+            <div class="exp-hypo">Price is a key scanning signal. For our desktop view, a proportionally larger price
+              (14/16/18/20 px) font should increase CTR.</div>
+            <div class="exp-meta">
+              <span class="tag">Desktop</span><span class="tag">12 days</span><span class="tag tag-variants">3
+                Variants</span>
+            </div>
+          </div>
+          <span class="status-pill pill-scale">Scale Test</span>
+        </div>
+        <details class="exp-screenshots">
+          <summary>Screenshots</summary>
+          <div class="screenshots-grid">
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp7" data-index="0">
+              <img src="https://i.postimg.cc/DfrKdGXK/Screenshot-2026-05-06-at-1-34-37-PM.png" alt="Control"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Control</div>
+              <div class="ss-badge">Control</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp7" data-index="1">
+              <img src="https://i.postimg.cc/k5R4vy8W/Screenshot-2026-05-06-at-1-45-11-PM.png" alt="Variant A"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant A</div>
+              <div class="ss-badge">Variant A</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp7" data-index="2">
+              <img src="https://i.postimg.cc/rsNXV6k2/Screenshot-2026-05-06-at-1-32-58-PM.png" alt="Variant B"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant B</div>
+              <div class="ss-badge">Variant B</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp7" data-index="3">
+              <img src="https://i.postimg.cc/MZ78bBQw/Screenshot-2026-05-06-at-1-34-56-PM.png" alt="Variant C"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant C</div>
+              <div class="ss-badge">Variant C</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+          </div>
+        </details>
+        <details class="exp-results">
+          <summary>Results</summary>
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th style="width:25%">Metric</th>
+                <th style="width:15%">Control</th>
+                <th>Variant A</th>
+                <th>Variant B</th>
+                <th>Variant C</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="td-metric">Participants</td>
+                <td class="td-control">33</td>
+                <td>47</td>
+                <td>50</td>
+                <td>52</td>
+              </tr>
+              <tr>
+                <td class="td-metric">CTR</td>
+                <td class="td-control">42.42%</td>
+                <td><span class="metric-chip chip-neg">− 19.02%</span></td>
+                <td><span class="metric-chip chip-neg">− 19.97%</span></td>
+                <td><span class="metric-chip chip-pos">+ 1.58%</span></td>
+              </tr>
+              <tr>
+                <td class="td-metric">Add_to_cart rate</td>
+                <td class="td-control">9.09% (3 atc)</td>
+                <td><span class="metric-chip chip-pos">+ 3.68%</span> (+3)</td>
+                <td><span class="metric-chip chip-pos">+ 2.91%</span> (+3)</td>
+                <td><span class="metric-chip chip-pos">+ 2.91%</span> (+3)</td>
+
+            </tbody>
+          </table>
+        </details>
+      </div>
+
+      <!-- ═══════════════════════════════════════════
+         EXP 8 — Featured category title
+    ═══════════════════════════════════════════ -->
+      <div class="exp-card">
+        <div class="exp-header">
+          <div>
+            <div class="exp-name">8. Featured category — intent-driven title copy</div>
+            <div class="exp-hypo">A title that expresses the category's intent and value should increase CTR on this
+              section.</div>
+            <div class="exp-meta">
+              <span class="tag">Mobile</span><span class="tag">Desktop</span><span class="tag">7 days</span><span
+                class="tag tag-variants">3 Variants</span>
+            </div>
+          </div>
+          <span class="status-pill pill-extend">↻ Extend</span>
+        </div>
+        <details class="exp-screenshots">
+          <summary>Screenshots</summary>
+          <div class="screenshots-grid">
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp8" data-index="0">
+              <img src="https://i.postimg.cc/BLsCtKsy/Screenshot-2026-05-06-at-11-30-49-AM.png" alt="Control"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Control</div>
+              <div class="ss-badge">Control</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp8" data-index="1">
+              <img src="https://i.postimg.cc/347ZWv7c/Screenshot-2026-05-06-at-11-41-34-AM.png" alt="Variant A"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant A</div>
+              <div class="ss-badge">Variant A</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp8" data-index="2">
+              <img src="https://i.postimg.cc/347ZWv7c/Screenshot-2026-05-06-at-11-41-34-AM.png" alt="Variant B"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant B</div>
+              <div class="ss-badge">Variant B</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp8" data-index="3">
+              <img src="https://i.postimg.cc/phxByFxS/Screenshot-2026-05-06-at-11-52-39-AM.png" alt="Variant C"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant C ★</div>
+              <div class="ss-badge">Variant C ✓</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+          </div>
+        </details>
+        <details class="exp-results">
+          <summary>Results</summary>
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th style="width:25%">Metric</th>
+                <th style="width:20%">Control value</th>
+                <th>Variant A</th>
+                <th>Variant B</th>
+                <th>Variant C</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="td-metric">Participants</td>
+                <td class="td-control">2,194</td>
+                <td><span class="td-metric">2,091</span></td>
+                <td><span class="td-metric">2,103</span></td>
+                <td><span class="td-metric">2,054</span></td>
+              </tr>
+              <tr>
+                <td class="td-metric">Section CTR</td>
+                <td class="td-control">17.26% (379)</td>
+                <td><span class="metric-chip chip-neg">− 0.95%</span> (-38)</td>
+                <td><span class="metric-chip chip-pos">+ 1.14%</span> (+5)</td>
+                <td><span class="metric-chip chip-pos">+ 0.56%</span> (-13)</td>
+              </tr>
+              <tr>
+                <td class="td-metric">Add to cart (ATC) rate</td>
+                <td class="td-control">5.61%</td>
+                <td><span class="metric-chip chip-pos">+ 0.51%</span> </td>
+                <td><span class="metric-chip chip-pos">+ 0.38%</span></td>
+                <td><span class="metric-chip chip-pos">+ 1.30%</span></td>
+              </tr>
+              <tr>
+                <td class="td-metric">Purchase rate</td>
+                <td class="td-control">1.73% (38)</td>
+                <td><span class="metric-chip chip-neg">- 0.25%</span> (-7 orders)</td>
+                <td><span class="metric-chip chip-neg">- 1.21%</span> (-27 orders)</td>
+                <td><span class="metric-chip chip-neg">- 0.07%</span> (-4 orders)</td>
+              </tr>
+            </tbody>
+          </table>
+        </details>
+        <details class="exp-results">
+          <summary>Key Insights</summary>
+          <div style="padding: 1rem 1.5rem 1.5rem 1.5rem; display: flex; flex-direction: column; gap: 10px;">
+            <div class="insight" style="margin-bottom: 0;">
+              <div class="insight-icon ii-warn"><svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path d="M7.5 3.5V8M7.5 10.5V11" stroke="#854F0B" stroke-width="1.6" stroke-linecap="round" />
+                </svg></div>
+              <div>
+                <div class="insight-body">Results are not statistically significant yet. Control and Variant C are
+                  trending very close to each other; the experiment needs to run longer to identify a clear winner.
+                </div>
+
+                </tbody>
+                </table>
+        </details>
+      </div>
+
+      <!-- ═══════════════════════════════════════════
+         EXP 10 — Price Layout Simplification
+    ═══════════════════════════════════════════ -->
+      <div class="exp-card">
+        <div class="exp-header">
+          <div>
+            <div class="exp-name">10. Price-Layout-Simplification-Mobile-Product-Card</div>
+            <div class="exp-hypo">Simplifying the price layout on mobile product cards to reduce cognitive load and
+              highlight the final price.</div>
+            <div class="exp-meta">
+              <span class="tag">Mobile</span><span class="tag">5 days</span><span class="tag tag-variants">6
+                Variants</span>
+            </div>
+          </div>
+          <span class="status-pill pill-extend">↻ Extend</span>
+        </div>
+        <details class="exp-screenshots">
+          <summary>Screenshots</summary>
+          <div class="screenshots-grid">
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp10" data-index="0">
+              <img src="https://i.postimg.cc/NjxrSDPy/control.png" alt="Control"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Control</div>
+              <div class="ss-badge">Control</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp10" data-index="1">
+              <img src="https://i.postimg.cc/NjtHdSbg/aa.png" alt="Variant AA"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant AA</div>
+              <div class="ss-badge">Variant AA</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp10" data-index="2">
+              <img src="https://i.postimg.cc/K85gwfsx/ab.png" alt="Variant AB"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant AB</div>
+              <div class="ss-badge">Variant AB</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp10" data-index="3">
+              <img src="https://i.postimg.cc/y8TStjr7/ac.png" alt="Variant AC"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant AC</div>
+              <div class="ss-badge">Variant AC</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp10" data-index="4">
+              <img src="https://i.postimg.cc/bwR2WgFy/ba.png" alt="Variant BA"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant BA</div>
+              <div class="ss-badge">Variant BA</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp10" data-index="5">
+              <img src="https://i.postimg.cc/XYgymLDN/bb.png" alt="Variant BB"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant BB</div>
+              <div class="ss-badge">Variant BB</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp10" data-index="6">
+              <img src="https://i.postimg.cc/dV9Tp6SZ/bc.png" alt="Variant BC"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant BC ★</div>
+              <div class="ss-badge">Variant BC ✓</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+          </div>
+        </details>
+        <details class="exp-results">
+          <summary>Results</summary>
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th style="width:15%">Metric</th>
+                <th style="width:12%">Control</th>
+                <th>AA</th>
+                <th>AB</th>
+                <th>AC</th>
+                <th>BA</th>
+                <th>BB</th>
+                <th>BC</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="td-metric">Tests Viewed</td>
+                <td class="td-control">51</td>
+                <td>51</td>
+                <td>43</td>
+                <td>51</td>
+                <td>51</td>
+                <td>67</td>
+                <td>59</td>
+              </tr>
+              <tr>
+                <td class="td-metric">Product View</td>
+                <td class="td-control">74.51%</td>
+                <td><span class="metric-chip chip-neg">−9.80%</span></td>
+                <td><span class="metric-chip chip-neg">−11.72%</span></td>
+                <td><span class="metric-chip chip-neg">−55.88%</span></td>
+                <td><span class="metric-chip chip-neg">−5.88%</span></td>
+                <td><span class="metric-chip chip-pos">+3.10%</span></td>
+                <td><span class="metric-chip chip-neg">−6.71%</span></td>
+              </tr>
+              <tr>
+                <td class="td-metric">ATC Rate</td>
+                <td class="td-control">19.61%</td>
+                <td><span class="metric-chip chip-pos">+1.96%</span></td>
+                <td><span class="metric-chip chip-neg">−10.31%</span></td>
+                <td><span class="metric-chip chip-neg">−7.85%</span></td>
+                <td><span class="metric-chip chip-pos">+5.88%</span></td>
+                <td><span class="metric-chip chip-neg">−3.19%</span></td>
+                <td><span class="metric-chip chip-best">+9.20% ★</span></td>
+              </tr>
+              <tr>
+                <td class="td-metric">Purchase Rate</td>
+                <td class="td-control">9.80%</td>
+                <td><span class="metric-chip chip-neg">−3.92%</span> (−2)</td>
+                <td><span class="metric-chip chip-neg">−5.15%</span> (−3)</td>
+                <td><span class="metric-chip chip-neg">−3.92%</span> (−2)</td>
+                <td><span class="metric-chip chip-neg">−5.88%</span> (−3)</td>
+                <td><span class="metric-chip chip-neg">−6.81%</span> (−3)</td>
+
+                <td><span class="metric-chip chip-best">+0.37%</span> (+1)</td>
+              </tr>
+            </tbody>
+          </table>
+        </details>
+      </div>
+
+      <!-- ═══════════════════════════════════════════
+         EXP 11 — Confirm order btn placement
+    ═══════════════════════════════════════════ -->
+      <div class="exp-card">
+        <div class="exp-header">
+          <div>
+            <div class="exp-name">11. Web Desktop Confirm Order btn Placement change</div>
+            <div class="exp-hypo">Fixing the confirm order button placement above/below the checkout summary to
+              resolve
+              fold-visibility issues for new users.</div>
+            <div class="exp-meta">
+              <span class="tag">Desktop</span><span class="tag">1 day</span><span class="tag tag-variants">2
+                Variants</span>
+            </div>
+          </div>
+          <span class="status-pill pill-extend">↻ Extend</span>
+        </div>
+        <details class="exp-screenshots">
+          <summary>Screenshots</summary>
+          <div class="screenshots-grid">
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp11" data-index="0">
+              <img src="https://i.postimg.cc/L8G0QxFD/Screenshot-2026-05-09-at-4-57-31-PM.png" alt="Control"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Control</div>
+              <div class="ss-badge">Control</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp11" data-index="1">
+              <img src="https://i.postimg.cc/Gm6SgXnx/Screenshot-2026-05-09-at-4-55-48-PM.png" alt="Variant A"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant A</div>
+              <div class="ss-badge">Variant A</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp11" data-index="2">
+              <img src="https://i.postimg.cc/QdvnYfZk/Screenshot-2026-05-09-at-4-55-34-PM.png" alt="Variant B"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant B ★</div>
+              <div class="ss-badge">Variant B ✓</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+          </div>
+        </details>
+        <details class="exp-results">
+          <summary>Results</summary>
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th style="width:38%">Metric</th>
+                <th style="width:20%">Control</th>
+                <th>A</th>
+                <th>B</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="td-metric">Tests Viewed</td>
+                <td class="td-control">198</td>
+                <td>198</td>
+                <td>188</td>
+              </tr>
+              <tr>
+                <td class="td-metric">Click Rate</td>
+                <td class="td-control">73.23%</td>
+                <td><span class="metric-chip chip-neg">−6.06%</span></td>
+                <td><span class="metric-chip chip-pos">+7.62%</span></td>
+              </tr>
+              <tr>
+                <td class="td-metric">Purchase Rate</td>
+                <td class="td-control">66.67%</td>
+                <td><span class="metric-chip chip-neg">−4.04%</span> (−8 orders)</td>
+                <td><span class="metric-chip chip-best">+6.73%</span> (+6 orders)</td>
+              </tr>
+              <tr>
+                <td class="td-metric">Net revenue generated / month </td>
+                <td class="td-control">
+                  AOV = ৳ 1065.96 <br>
+                  <span> Daily orders = + 6 orders</span>
+                </td>
+                <td><span></span></td>
+                <td>
+                  <span class="metric-chip chip-best">৳ 179,081.28 </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </details>
+        <details class="exp-results">
+          <summary>Key Insights</summary>
+          <div style="padding: 1rem 1.5rem 1.5rem 1.5rem; display: flex; flex-direction: column; gap: 10px;">
+            <div class="insight" style="margin-bottom: 0;">
+              <div class="insight-icon ii-warn"><svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path d="M7.5 3.5V8M7.5 10.5V11" stroke="#854F0B" stroke-width="1.6" stroke-linecap="round" />
+                </svg></div>
+              <div>
+                <div class="insight-body">Even though the results are looking favorable for Variant B, the metrics
+                  have not reached statistical significance yet. The experiment needs to run for a longer period to
+                  confirm the lift.</div>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- ═══════════════════════════════════════════
+         EXP 12 — %OFF font scaling
+    ═══════════════════════════════════════════ -->
+      <div class="exp-card">
+        <div class="exp-header">
+          <div>
+            <div class="exp-name">12. %OFF font scaling exp</div>
+            <div class="exp-hypo">Increasing the font size of the percentage discount text (14px to 16px/18px) to make
+              it more
+              prominent and drive ATC rates on mobile.</div>
+            <div class="exp-meta">
+              <span class="tag">Mobile</span><span class="tag">6 days</span><span class="tag tag-variants">2
+                Variants</span>
+            </div>
+          </div>
+          <span class="status-pill pill-extend">↻ Extend</span>
+        </div>
+        <details class="exp-screenshots">
+          <summary>Screenshots</summary>
+          <div class="screenshots-grid">
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp12" data-index="0">
+              <img src="https://i.postimg.cc/gkq0RMCf/control-discount.png" alt="Control"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Control</div>
+              <div class="ss-badge">Control</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp12" data-index="1">
+              <img src="https://i.postimg.cc/SN7K8ZB3/a.png" alt="Variant A"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant A</div>
+              <div class="ss-badge">Variant A</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="exp12" data-index="2">
+              <img src="https://i.postimg.cc/rFCpWhB7/b-discount.png" alt="Variant B"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant B</div>
+              <div class="ss-badge">Variant B</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+          </div>
+        </details>
+        <details class="exp-results">
+          <summary>Results</summary>
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th style="width:38%">Metric</th>
+                <th style="width:20%">Control</th>
+                <th>Variant A</th>
+                <th>Variant B</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="td-metric">Tests Viewed</td>
+                <td class="td-control">395 participants</td>
+                <td>381</td>
+                <td>394</td>
+              </tr>
+              <tr>
+                <td class="td-metric">ATC Rate</td>
+                <td class="td-control">23.80%</td>
+                <td><span class="metric-chip chip-pos">+ 0.08%</span></td>
+                <td><span class="metric-chip chip-neg">− 5.48%</span></td>
+              </tr>
+              <tr>
+                <td class="td-metric">Purchase Rate</td>
+                <td class="td-control">3.80%</td>
+                <td>
+                  <span class="metric-chip chip-pos">+ 0.14%</span>
+                  <span>(0 orders)</span>
+                </td>
+                <td>
+                  <span class="metric-chip chip-best">+ 0.53% ★</span>
+                  <span> (+2 orders)</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="td-metric">Net revenue generated / month </td>
+                <td class="td-control"> AOV = ৳ 1065.96 <br>
+                  <span> Weekly orders = + 2.33</span>
+                </td>
+                <td><span class="metric-chip chip-pos">৳ 0</span></td>
+                <td>
+                  <span class="metric-chip chip-best">৳ 9,945.33 ★</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </details>
+        <details class="exp-results">
+          <summary>Key Insights</summary>
+          <div style="padding: 1rem 1.5rem 1.5rem 1.5rem; display: flex; flex-direction: column; gap: 10px;">
+            <div class="insight" style="margin-bottom: 0;">
+              <div class="insight-icon ii-warn"><svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path d="M7.5 3.5V8M7.5 10.5V11" stroke="#854F0B" stroke-width="1.6" stroke-linecap="round" />
+                </svg></div>
+              <div>
+                <div class="insight-body">Even though the results are looking favorable for Variant B in terms of
+                  purchase rate, the metrics
+                  have not reached statistical significance yet. The experiment needs to run for a longer period to
+                  confirm the lift.</div>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-label">Implemented tests waiting to go live</div>
+
+      <div class="exp-card">
+        <div class="exp-header">
+          <div>
+            <div class="exp-name">TEST-020: Cart — Move "Apply Promo Code" to Cart Page</div>
+            <div class="exp-hypo">Currently, the voucher field is only on the final checkout step. Users often navigate
+              to the checkout just to check their total with a voucher and then leave, or get distracted looking for
+              codes. Moving it to the cart page will consolidate this behavior and increase the checkout completion
+              rate.</div>
+            <div class="exp-meta">
+              <span class="tag">Cart</span><span class="tag">Implemented</span><span class="tag tag-variants">1
+                Variant</span>
+            </div>
+          </div>
+          <span class="status-pill pill-scale" style="background:var(--amber-bg); color:var(--amber-dark);">QA
+            Testing</span>
+        </div>
+        <details class="exp-screenshots" open>
+          <summary>Screenshots</summary>
+          <div class="screenshots-grid">
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="test020" data-index="0">
+              <img src="https://i.postimg.cc/Y2TydQPr/voucher-control.png" alt="Control"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Control</div>
+              <div class="ss-badge">Control</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="test020" data-index="1">
+              <img src="https://i.postimg.cc/L4G0xjWp/voucher-a.png" alt="Variant A"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant A</div>
+              <div class="ss-badge">Variant A</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+          </div>
+        </details>
+        <div style="padding: 1rem 1.5rem; background: var(--bg2); border-top: 1px solid var(--border);">
+          <div
+            style="font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text2); margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            Status / Blockers
+          </div>
+          <div class="exp-hypo" style="color: var(--text);">
+            Development is complete. Currently going through QA testing before deployment.
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-header">
+          <div>
+            <div class="exp-name">TEST-012: Checkout — Order Summary Dropdown & Redesign</div>
+            <div class="exp-hypo">A previous test revealed that a highly visible order summary can induce purchase fear,
+              increasing drop-off by 2%. This iteration hides the summary in an expandable dropdown, changes its
+              placement, and separates the payment total/order summary button from the payment methods to reduce
+              friction.</div>
+            <div class="exp-meta">
+              <span class="tag">Checkout</span><span class="tag">Implemented</span><span class="tag tag-variants">3
+                Variants</span>
+            </div>
+          </div>
+          <span class="status-pill pill-scale" style="background:var(--blue-bg); color:var(--blue-dark);">Code
+            Review</span>
+        </div>
+        <details class="exp-screenshots" open>
+          <summary>Screenshots</summary>
+          <div class="screenshots-grid">
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="test012" data-index="0">
+              <img src="https://i.postimg.cc/rwyVp6NN/checkoutv2-control.png" alt="Control"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Control</div>
+              <div class="ss-badge">Control</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="test012" data-index="1">
+              <img src="https://i.postimg.cc/Z5YbqkxP/cehckoutv2-a-open.png" alt="Variant A (Open)"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant A (Open)</div>
+              <div class="ss-badge">Variant A</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="test012" data-index="2">
+              <img src="https://i.postimg.cc/K8cGYXDM/cehckoutv2-a-clode.png" alt="Variant A (Close)"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant A (Close)</div>
+              <div class="ss-badge">Variant A</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="test012" data-index="3">
+              <img src="https://i.postimg.cc/cL1xJqBc/checkoutv2-b.png" alt="Variant B"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant B</div>
+              <div class="ss-badge">Variant B</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="test012" data-index="4">
+              <img src="https://i.postimg.cc/cL1xJqBM/checkoutv2-c.png" alt="Variant C"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant C</div>
+              <div class="ss-badge">Variant C</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+          </div>
+        </details>
+        <div style="padding: 1rem 1.5rem; background: var(--bg2); border-top: 1px solid var(--border);">
+          <div
+            style="font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text2); margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            Status / Blockers
+          </div>
+          <div class="exp-hypo" style="color: var(--text);">
+            Implementation is finished. Currently undergoing code review.
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-header">
+          <div>
+            <div class="exp-name">Login — Improve OTP Option Visibility</div>
+            <div class="exp-hypo">Users increasingly prefer logging in via phone number and OTP over email/password.
+              Currently, the OTP option requires an extra step. Exposing the OTP option immediately and updating
+              placeholders to prioritize phone numbers will increase the login conversion rate.</div>
+            <div class="exp-meta">
+              <span class="tag">Login</span><span class="tag">Implemented</span><span class="tag tag-variants">1
+                Variant</span>
+            </div>
+          </div>
+          <span class="status-pill pill-scale" style="background:var(--amber-bg); color:var(--amber-dark);">QA
+            Testing</span>
+        </div>
+        <details class="exp-screenshots" open>
+          <summary>Screenshots</summary>
+          <div class="screenshots-grid">
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="login_otp" data-index="0">
+              <img src="https://i.postimg.cc/432Fr3Z3/emailvsnumber-control.png" alt="Control"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Control</div>
+              <div class="ss-badge">Control</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="login_otp" data-index="1">
+              <img src="https://i.postimg.cc/VNZH3N1w/emailvsnumber-a.jpg" alt="Variant A"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant A</div>
+              <div class="ss-badge">Variant A</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+          </div>
+        </details>
+        <div style="padding: 1rem 1.5rem; background: var(--bg2); border-top: 1px solid var(--border);">
+          <div
+            style="font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text2); margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            Status / Blockers
+          </div>
+          <div class="exp-hypo" style="color: var(--text);">
+            Development is complete. Currently going through QA testing.
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-header">
+          <div>
+            <div class="exp-name">TEST-041: Cart — Pop-up Login Modal</div>
+            <div class="exp-hypo">~70% of users browse without logging in. The current redirect to a separate login page
+              creates a context switch and friction that increases cart drop-off. Keeping users in-context with a login
+              modal on the cart page will prevent this redirect.</div>
+            <div class="exp-meta">
+              <span class="tag">Cart</span><span class="tag">Implemented</span><span class="tag tag-variants">1
+                Variant</span>
+            </div>
+          </div>
+          <span class="status-pill pill-iterate" style="background:var(--red-bg); color:var(--red-dark);">●
+            Blocked</span>
+        </div>
+        <details class="exp-screenshots" open>
+          <summary>Screenshots</summary>
+          <div class="screenshots-grid">
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="test041" data-index="0">
+              <img src="https://i.postimg.cc/fTXYDdTG/popup-login-control.png" alt="Control"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Control</div>
+              <div class="ss-badge">Control</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="test041" data-index="1">
+              <img src="https://i.postimg.cc/3Jp2YGJP/popup-login-a.png" alt="Variant A"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant A</div>
+              <div class="ss-badge">Variant A</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+          </div>
+        </details>
+        <div style="padding: 1rem 1.5rem; background: var(--bg2); border-top: 1px solid var(--border);">
+          <div
+            style="font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--red); margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            Blockers & Reasoning
+          </div>
+          <div class="exp-hypo" style="color: var(--text);">
+            Frontend implementation is complete. However, the feature is blocked due to pending backend support to
+            handle the new modal login logic appropriately.
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-header">
+          <div>
+            <div class="exp-name">TEST-038: Quick Deals — Urgency and Scarcity Labels</div>
+            <div class="exp-hypo">Quick Deal lists show urgency bars and stock availability, but lack strong scarcity
+              warnings. Adding explicit scarcity labels will increase click-through rates and purchase intent for Quick
+              Deal items.</div>
+            <div class="exp-meta">
+              <span class="tag">Home</span><span class="tag">Implemented</span><span class="tag tag-variants">4
+                Variants</span>
+            </div>
+          </div>
+          <span class="status-pill pill-iterate" style="background:var(--red-bg); color:var(--red-dark);">●
+            Re-implement</span>
+        </div>
+        <details class="exp-screenshots" open>
+          <summary>Screenshots</summary>
+          <div class="screenshots-grid">
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="test038" data-index="0">
+              <img src="https://i.postimg.cc/nzPwbmcq/urgency-a.png" alt="Variant A"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant A</div>
+              <div class="ss-badge">Variant A</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="test038" data-index="1">
+              <img src="https://i.postimg.cc/hj53WmPL/urgency-b.png" alt="Variant B"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant B</div>
+              <div class="ss-badge">Variant B</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="test038" data-index="2">
+              <img src="https://i.postimg.cc/XJzDS57d/ungency-c.png" alt="Variant C"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant C</div>
+              <div class="ss-badge">Variant C</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="test038" data-index="3">
+              <img src="https://i.postimg.cc/cHH5bhZ8/urgency-d.png" alt="Variant D"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant D</div>
+              <div class="ss-badge">Variant D</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+          </div>
+        </details>
+        <div style="padding: 1rem 1.5rem; background: var(--bg2); border-top: 1px solid var(--border);">
+          <div
+            style="font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--red); margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            Blockers & Reasoning
+          </div>
+          <div class="exp-hypo" style="color: var(--text);">
+            Development was completed and passed QA. However, a recent redesign of the component requires this feature
+            to be completely re-implemented to match the new UI.
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-header">
+          <div>
+            <div class="exp-name">Cart — Quick Deal Stock Remaining</div>
+            <div class="exp-hypo">Cart pages currently do not show the remaining stock for Quick Deal items. Displaying
+              the stock left amount within the cart will create urgency and increase the cart completion rate for these
+              limited-time products.</div>
+            <div class="exp-meta">
+              <span class="tag">Cart</span><span class="tag">Implemented</span><span class="tag tag-variants">1
+                Variant</span>
+            </div>
+          </div>
+          <span class="status-pill pill-scale" style="background:var(--gray-bg); color:var(--gray-dark);">Pending</span>
+        </div>
+        <details class="exp-screenshots" open>
+          <summary>Screenshots</summary>
+          <div class="screenshots-grid">
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="cart_quick_deal" data-index="0">
+              <img src="https://i.postimg.cc/PrQDcjq2/sotck-cart-control.png" alt="Control"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Control</div>
+              <div class="ss-badge">Control</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="cart_quick_deal" data-index="1">
+              <img src="https://i.postimg.cc/J45XgLhg/stock-cart-a.png" alt="Variant A"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant A</div>
+              <div class="ss-badge">Variant A</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+          </div>
+        </details>
+        <div style="padding: 1rem 1.5rem; background: var(--bg2); border-top: 1px solid var(--border);">
+          <div
+            style="font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text2); margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            Status / Blockers
+          </div>
+          <div class="exp-hypo" style="color: var(--text);">
+            Implemented and is going through QA testing.
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-header">
+          <div>
+            <div class="exp-name">PDP — Quick Deal Stock Remaining</div>
+            <div class="exp-hypo">Currently, Product Detail Pages for items in a Quick Deal do not show the remaining
+              stock status. Adding this visual indicator will induce scarcity and urgency, encouraging users to complete
+              their purchase faster.</div>
+            <div class="exp-meta">
+              <span class="tag">PDP</span><span class="tag">Implemented</span><span class="tag tag-variants">1
+                Variant</span>
+            </div>
+          </div>
+          <span class="status-pill pill-scale" style="background:var(--gray-bg); color:var(--gray-dark);">Pending</span>
+        </div>
+        <details class="exp-screenshots" open>
+          <summary>Screenshots</summary>
+          <div class="screenshots-grid">
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="pdp_stock_left" data-index="0">
+              <img src="https://i.postimg.cc/rFMjzg0g/pdp-stockleft-control.png" alt="Control"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Control</div>
+              <div class="ss-badge">Control</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+            <div class="ss-thumb" onclick="openCarousel(this)" data-group="pdp_stock_left" data-index="1">
+              <img src="https://i.postimg.cc/pVDk23TB/pdp-stockleft-a.png" alt="Variant A"
+                onload="this.nextElementSibling.style.display='none'"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                referrerpolicy="no-referrer">
+              <div class="ss-placeholder" style="display:flex"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>Add screenshot</div>
+              <div class="ss-label">Variant A</div>
+              <div class="ss-badge">Variant A</div>
+              <div class="ss-expand-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" />
+                </svg></div>
+            </div>
+          </div>
+        </details>
+        <div style="padding: 1rem 1.5rem; background: var(--bg2); border-top: 1px solid var(--border);">
+          <div
+            style="font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text2); margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            Status / Blockers
+          </div>
+          <div class="exp-hypo" style="color: var(--text);">
+            Implemented and awaiting deployment to live.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- IDEA BACKLOG -->
+    <section class="section">
+      <div class="section-label">Idea Backlog</div>
+      <table class="next-table">
+        <thead>
+          <tr>
+            <th style="width:12%">Test ID</th>
+            <th style="width:15%">Category</th>
+            <th>Problem / Hypothesis</th>
+            <th style="width:10%">ICE Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>TEST-010</td>
+            <td>PDP</td>
+            <td>54% of orders are single-item. Adding a "Buy Now" CTA will bypass unnecessary cart steps and increase
+              CR.</td>
+            <td><span class="priority p-high">8.5</span></td>
+          </tr>
+          <tr>
+            <td>TEST-013</td>
+            <td>Checkout</td>
+            <td>Mobile view order summary is not intuitive. Grouping shipping costs and discounts closer to the CTA will
+              increase clarity.</td>
+            <td><span class="priority p-high">8.0</span></td>
+          </tr>
+          <tr>
+            <td>TEST-014</td>
+            <td>Checkout</td>
+            <td>List-view for payment methods take up too much screen space, since most people know the logos, a grid
+              view will help users scroll less, and reduce cognitive burden.</td>
+            <td><span class="priority p-med">7.3</span></td>
+          </tr>
+          <tr>
+            <td>TEST-015</td>
+            <td>Payment</td>
+            <td>COD is the primary payment method. Defaulting to COD in the checkout selection will reduce
+              time-to-order.</td>
+            <td><span class="priority p-high">7.9</span></td>
+          </tr>
+          <tr>
+            <td>TEST-016</td>
+            <td>Cart</td>
+            <td>Users often abandon because of unexpected shipping costs. Displaying a "Free Shipping Progress Bar"
+              in-cart will increase AOV.</td>
+            <td><span class="priority p-med">7.2</span></td>
+          </tr>
+          <tr>
+            <td>TEST-017</td>
+            <td>Checkout</td>
+            <td>Guest checkout is currently secondary. Promoting "Checkout as Guest" above the login wall will reduce
+              drop-offs.</td>
+            <td><span class="priority p-med">7.0</span></td>
+          </tr>
+          <tr>
+            <td>TEST-019</td>
+            <td>Checkout</td>
+            <td>Trust signals in the checkout page. I.e 7-day happy return, authentic product etc.</td>
+            <td><span class="priority p-med">6.3</span></td>
+          </tr>
+          <tr>
+            <td>TEST-021</td>
+            <td>Checkout</td>
+            <td>Form fields for addresses are overly complex. Implementing Google Maps auto-complete for physical
+              addresses.</td>
+            <td><span class="priority p-med">6.0</span></td>
+          </tr>
+          <tr>
+            <td>TEST-022</td>
+            <td>Cart</td>
+            <td>“Recently Viewed Products” in cart page, can increase upsales.</td>
+            <td><span class="priority p-med">6.6</span></td>
+          </tr>
+          <tr>
+            <td>TEST-023</td>
+            <td>Cart</td>
+            <td>Recommended products in-cart are generic. Testing "Users who bought [Item X] also liked" for
+              personalized cross-selling.</td>
+            <td><span class="priority p-low">5.4</span></td>
+          </tr>
+          <tr>
+            <td>TEST-024</td>
+            <td>Checkout</td>
+            <td>Multi-step vs Single-page. Testing a unified single-page checkout to reduce the "Continue" click
+              friction.</td>
+            <td><span class="priority p-low">4.9</span></td>
+          </tr>
+          <tr>
+            <td>TEST-025</td>
+            <td>Cart</td>
+            <td>Payment method accepted section, 7 day happy return can increase trust and increase checkout percentage.
+            </td>
+            <td><span class="priority p-low">5.0</span></td>
+          </tr>
+          <tr>
+            <td>TEST-026</td>
+            <td>Cart</td>
+            <td>“কার্টে আরও যা যুক্ত করতে পারেন” grid vs carousel view test</td>
+            <td><span class="priority p-med">7.2</span></td>
+          </tr>
+          <tr>
+            <td>TEST-027</td>
+            <td>Checkout</td>
+            <td>Changing the CTA text on the final payment submission page from a generic term (e.g., 'Confirm Order')
+              to a more reassuring, goal-oriented phrase (e.g., 'Complete Secure Order') will increase the final
+              click-through rate, reducing payment page drop-offs.</td>
+            <td><span class="priority p-high">7.5</span></td>
+          </tr>
+          <tr>
+            <td>TEST-028</td>
+            <td>Cart</td>
+            <td>“কার্টে আরও যা যুক্ত করতে পারেন” copy test</td>
+            <td><span class="priority p-med">6.9</span></td>
+          </tr>
+          <tr>
+            <td>TEST-029</td>
+            <td>PLP</td>
+            <td>Product cards on Category pages are too cluttered. Increasing vertical spacing will improve scannability
+              and ATC rates.</td>
+            <td><span class="priority p-high">7.7</span></td>
+          </tr>
+          <tr>
+            <td>TEST-030</td>
+            <td>Search</td>
+            <td>Users struggle with non-specific results. Adding "Popular in [City]" badges to search results provides
+              social proof.</td>
+            <td><span class="priority p-high">7.5</span></td>
+          </tr>
+          <tr>
+            <td>TEST-031</td>
+            <td>PDP</td>
+            <td>Product details are text-heavy. Using tabbed navigation for "Description" vs "Specifications" will
+              reduce page height.</td>
+            <td><span class="priority p-med">7.1</span></td>
+          </tr>
+          <tr>
+            <td>TEST-032</td>
+            <td>Home</td>
+            <td>"Recently Sold Products" is too business-centric. Testing "Community Favorites" to improve relatable
+              social proof.</td>
+            <td><span class="priority p-med">6.8</span></td>
+          </tr>
+          <tr>
+            <td>TEST-033</td>
+            <td>PDP</td>
+            <td>Multiple trust signals (Guarantee, Support) are hidden. Moving them below the "Add to Cart" button will
+              improve Confidence.</td>
+            <td><span class="priority p-med">6.7</span></td>
+          </tr>
+          <tr>
+            <td>TEST-034</td>
+            <td>Search</td>
+            <td>No "Clear All" filter option. Adding a prominent reset will improve the search experience on mobile.
+            </td>
+            <td><span class="priority p-med">6.4</span></td>
+          </tr>
+          <tr>
+            <td>TEST-035</td>
+            <td>PDP</td>
+            <td>Reduce text in checkout page, redundant or extra texts, can waste user-time and increase cognitive load.
+              Streamlining checkout page copy to convey the information/message as quickly as possible.</td>
+            <td><span class="priority p-med">6.1</span></td>
+          </tr>
+          <tr>
+            <td>TEST-036</td>
+            <td>PLP</td>
+            <td>Discount tags are currently small text. Testing a high-contrast "Save [Amount]" badge in the top right
+              of product cards.</td>
+            <td><span class="priority p-low">5.9</span></td>
+          </tr>
+          <tr>
+            <td>TEST-037</td>
+            <td>Navigation</td>
+            <td>The category menu is deep. Adding a "Quick Links" section with top 5 categories will speed up discovery.
+            </td>
+            <td><span class="priority p-low">5.8</span></td>
+          </tr>
+          <tr>
+            <td>TEST-039</td>
+            <td>PDP</td>
+            <td>Reviews with 0 count discourage trust. Hiding the star rating completely when count is 0 to remove
+              negative social proof.</td>
+            <td><span class="priority p-low">5.6</span></td>
+          </tr>
+          <tr>
+            <td>TEST-040</td>
+            <td>Search</td>
+            <td>Guest login CTA for cart page</td>
+            <td><span class="priority p-low">5.5</span></td>
+          </tr>
+          <tr>
+            <td>TEST-042</td>
+            <td>Home</td>
+            <td>Title length for sections is too long (Bengali). Testing short, punchy titles to reduce visitor
+              skip-rate.</td>
+            <td><span class="priority p-low">5.2</span></td>
+          </tr>
+          <tr>
+            <td>TEST-044</td>
+            <td>PDP</td>
+            <td>"Add to Wishlist" fires on click without confirmation. Adding a "Saved to Wishlist" toast to improve
+              feedback loop.</td>
+            <td><span class="priority p-low">5.1</span></td>
+          </tr>
+          <tr>
+            <td>TEST-045</td>
+            <td>Home</td>
+            <td>Promotional banners are non-interactive. Testing a "Click to Copy" coupon code integrated into the
+              banner.</td>
+            <td><span class="priority p-low">4.8</span></td>
+          </tr>
+          <tr>
+            <td>TEST-046</td>
+            <td>UI/UX</td>
+            <td>Font Weight & Visual Hierarchy (PDP). Increasing the font-weight of the Price by 200 units while
+              decreasing the Title weight slightly will draw immediate attention to the value proposition, increasing
+              ATC.</td>
+            <td><span class="priority p-med">6.0</span></td>
+          </tr>
+          <tr>
+            <td>TEST-047</td>
+            <td>UI/UX</td>
+            <td>Sticky "Add to Cart" Mobile Bar (PDP). Implementing a sticky bottom bar with "Add to Cart" and "Price"
+              that appears once the user scrolls past the main section will increase conversion on mobile.</td>
+            <td><span class="priority p-med">6.9</span></td>
+          </tr>
+          <tr>
+            <td>TEST-048</td>
+            <td>UI/UX</td>
+            <td>Increased Touch Targets (Navigation). Increasing the padding of all navigation icons to a minimum of
+              48x48px will reduce user frustration and bounce rates.</td>
+            <td><span class="priority p-low">5.5</span></td>
+          </tr>
+          <tr>
+            <td>TEST-049</td>
+            <td>UI/UX</td>
+            <td>Line Spacing for Product Descriptions (PDP). Increasing the line-height to 1.4 for all paragraph text
+              will improve readability, keeping users on the page longer and increasing "Confidence" scores.</td>
+            <td><span class="priority p-low">4.5</span></td>
+          </tr>
+          <tr>
+            <td>TEST-050</td>
+            <td>PDP</td>
+            <td>Making active promo codes visible and easy to copy (with a 'Copy' button) near the 'Add to Cart' button
+              will encourage users to use the discount, improving conversion for discount-sensitive users.</td>
+            <td><span class="priority p-high">8.1</span></td>
+          </tr>
+          <tr>
+            <td>TEST-051</td>
+            <td>Post-Purchase</td>
+            <td>Showing visual (image + text) links to major categories (e.g., Superstore, Books) on the order
+              confirmation/thank-you page will successfully re-engage users immediately post-conversion, driving clicks
+              and increasing second-order probability.</td>
+            <td><span class="priority p-med">6.5</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- OTHER TASKS -->
+    <section class="section">
+      <div class="section-label">Other tasks completed this month</div>
+
+      <div class="insight">
+        <div class="insight-icon ii-win"><svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+            <path d="M2.5 8L6 11.5L12.5 4" stroke="#0F6E56" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="insight-title">Login Redirection Malfunction Report</div>
+          <div class="insight-body">
+            Investigated and submitted a detailed report regarding the login redirection malfunction originating from
+            the cart page. <br>
+            <a href="https://docs.google.com/document/d/1Bkqxii0iVoJ8VDpi5bJgwAHKRO5Z5NmqlS9Eo1Wn8R4/edit?usp=sharing"
+              target="_blank" class="link-chip">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+              View Report ↗
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="insight">
+        <div class="insight-icon ii-win"><svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+            <path d="M2.5 8L6 11.5L12.5 4" stroke="#0F6E56" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="insight-title">GrowthBook Server-Side Optimization</div>
+          <div class="insight-body">
+            Improved and optimized the server-side implementation of GrowthBook for more robust and reliable A/B test
+            delivery, and a more maintainable code base.
+          </div>
+        </div>
+      </div>
+
+      <div class="insight">
+        <div class="insight-icon ii-win"><svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+            <path d="M2.5 8L6 11.5L12.5 4" stroke="#0F6E56" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="insight-title">Embedded Surveys Requirements</div>
+          <div class="insight-body">
+            Submitted comprehensive requirements for implementing embedded surveys to collect real, actionable user
+            feedback directly within the platform. <br>
+            <a href="https://docs.google.com/document/d/1bx11o0ocH2jkAOmLakTmlxN9brGOPuKPidmClTp_ALM/edit?usp=sharing"
+              target="_blank" class="link-chip">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+              View Requirements ↗
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="insight">
+        <div class="insight-icon ii-win"><svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+            <path d="M2.5 8L6 11.5L12.5 4" stroke="#0F6E56" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="insight-title">Safe Feature Rollouts via GrowthBook</div>
+          <div class="insight-body">
+            Collaborated with the SE and SQA team to utilize GrowthBook for safe, phased feature rollouts. <br><br>
+            <div
+              style="background: var(--bg2); padding: 12px 16px; border-radius: 8px; border: 1px solid var(--border); font-size: 13px;">
+              <strong style="color: var(--text); display: block; margin-bottom: 6px;">Case Study: My Orders &amp; Order
+                Track Redesign</strong>
+              We are currently using GrowthBook to cautiously roll out the redesigned my-orders and order-track flow to
+              our OG users first. We will collect brief feedback on their experience, and if positive, expand the
+              rollout to the rest of the user base. This approach significantly mitigates risk and ensures a smooth UX
+              transition. If any major bug arises we are also able to turn-off the feature without requiring a revert
+              and re-deployment from the dev-ops team. This in potential can reduce risk and potential points of stress
+              for our SQA and dev-ops team.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KEY LEARNINGS -->
+    <section class="section">
+      <div class="section-label">Key learnings</div>
+      <div class="insight">
+        <div class="insight-icon ii-win"><svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+            <path d="M2.5 8L6 11.5L12.5 4" stroke="#0F6E56" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="insight-title">Navigation visibility is the single highest-leverage change this month</div>
+          <div class="insight-body">Simply surfacing the extra-discount page in the main nav drove ×3.7 views and
+            ৳80,269/month in incremental revenue — with no product changes. There are almost certainly other high-value,
+            low-visibility pages that would respond the same way. Recommend a nav audit in May.</div>
+        </div>
+      </div>
+      <div class="insight">
+        <div class="insight-icon ii-win"><svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+            <path d="M2.5 8L6 11.5L12.5 4" stroke="#0F6E56" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="insight-title">Fold-visibility for critical CTAs drives immediate revenue</div>
+          <div class="insight-body">Fixing the "Confirm Order" button placement above the checkout summary (Exp 11)
+            drove a +6.73% absolute purchase rate lift. Essential actions must never be buried below the fold,
+            especially for new users without saved shipping data.</div>
+        </div>
+      </div>
+      <div class="insight">
+        <div class="insight-icon ii-win"><svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+            <path d="M2.5 8L6 11.5L12.5 4" stroke="#0F6E56" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="insight-title">Bangla-native CTAs outperform English on mobile</div>
+          <div class="insight-body">The Bangla "কার্টে যান" label drove +14.4% view-cart rate vs. +12.8% for English — a
+            meaningful gap for a primarily Bengali-speaking audience. This pattern should be tested systematically
+            across search, wishlist, and checkout CTAs in May.</div>
+        </div>
+      </div>
+      <div class="insight">
+        <div class="insight-icon ii-win"><svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+            <path d="M2.5 8L6 11.5L12.5 4" stroke="#0F6E56" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="insight-title">Copy beats design — intent-driven titles outperform visual redesigns</div>
+          <div class="insight-body">The featured category title test (Variant C: +4.9% CTR) outperformed all design-only
+            tests this month. Messaging that communicates clear value intent drives stronger engagement than visual
+            styling alone. Prioritise copy testing in H2.</div>
+        </div>
+      </div>
+      <div class="insight">
+        <div class="insight-icon ii-warn"><svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+            <path d="M7.5 3.5V8M7.5 10.5V11" stroke="#854F0B" stroke-width="1.6" stroke-linecap="round" />
+          </svg></div>
+        <div>
+          <div class="insight-title">Micro-optimisations yield small, incremental gains</div>
+          <div class="insight-body">Scaling the "%OFF" discount font (Exp 12) drove a minor +0.53% purchase rate lift,
+            while structural changes like CTA placement drove 10x that impact. We should balance fine-tuning UI details
+            with high-leverage structural tests.</div>
+        </div>
+      </div>
+      <div class="insight">
+        <div class="insight-icon ii-warn"><svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+            <path d="M7.5 3.5V8M7.5 10.5V11" stroke="#854F0B" stroke-width="1.6" stroke-linecap="round" />
+          </svg></div>
+        <div>
+          <div class="insight-title">Tests under 7 days are not actionable — enforce minimum runtime</div>
+          <div class="insight-body">Multiple experiments ran for only 1–6 days — insufficient to achieve statistical
+            significance or capture weekly traffic patterns. Going forward, all tests should have a minimum 7-day
+            runtime, with a pre-set sample size calculation from GrowthBook before launch.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEXT STEPS -->
+    <section class="section">
+      <div class="section-label">Next steps — May 2026</div>
+      <table class="next-table">
+        <thead>
+          <tr>
+            <th>Action</th>
+            <th>Experiment</th>
+            <th>Owner</th>
+            <th>Priority</th>
+            <th>Timeline</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ship to 100%</td>
+            <td>Extra-discount nav, Foreign book price, Featured title C, QuickDeal badge A</td>
+            <td>Engineering</td>
+            <td><span class="priority p-high">High</span></td>
+            <td>May W1</td>
+          </tr>
+          <tr>
+            <td>Scale to high-traffic page</td>
+            <td>Superstore ATC — Bangla variant</td>
+            <td>CRO + Product</td>
+            <td><span class="priority p-high">High</span></td>
+            <td>May W1</td>
+          </tr>
+          <tr>
+            <td>Resolve APP A/B test issue</td>
+            <td>Fix A/B testing issue in firebase console. and re-test positive web tests</td>
+            <td>CRO + dev</td>
+            <td><span class="priority p-high ">High</span></td>
+            <td>May W2</td>
+          </tr>
+          <tr>
+            <td>Expand Bangla CTA pattern</td>
+            <td>Search, wishlist, checkout CTAs</td>
+            <td>CRO + Copy</td>
+            <td><span class="priority p-high">High</span></td>
+            <td>May W2</td>
+          </tr>
+          <tr>
+            <td>Extend test (min 7 days)</td>
+            <td>Show rating, savings font, item card price font</td>
+            <td>CRO</td>
+            <td><span class="priority p-med">Medium</span></td>
+            <td>May W2</td>
+          </tr>
+          <tr>
+            <td>Redesign &amp; re-test</td>
+            <td>Checkout summary — revisit UX approach</td>
+            <td>UX + CRO</td>
+            <td><span class="priority p-med">Medium</span></td>
+            <td>May W3</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="footer">
+      Prepared by CRO Team · Rokomari.com · April 2026 · Tool: GrowthBook<br>
+      Revenue projection: 43 incremental daily orders × ৳466.68 AOV × 4 weeks = ৳80,269/month. Purchase rate lifts on
+      Superstore ATC are directional only due to low purchase count during test window. All tests with &lt;7 day
+      duration are flagged as preliminary.
+    </div>
+  </div>
+
+  <!-- ═══════════════ LIGHTBOX ═══════════════ -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot viewer">
+    <button class="lb-close" onclick="closeLightbox()" title="Close (Esc)">✕</button>
+    <div class="lb-counter" id="lb-counter"></div>
+
+    <div class="lb-inner">
+      <div class="lb-img-wrap">
+        <img class="lb-img" id="lb-img" src="" alt="" referrerpolicy="no-referrer">
+        <div class="lb-placeholder" id="lb-placeholder" style="display:none">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <circle cx="8.5" cy="8.5" r="1.5" />
+            <path d="m21 15-5-5L5 21" />
+          </svg>
+          <span>No screenshot added yet</span>
+          <span style="font-size:12px;color:#666;">Replace the src="" in the HTML with your Imgur link</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="lb-caption" id="lb-caption"></div>
+        <div class="lb-caption-sub" id="lb-caption-sub"></div>
+      </div>
+
+      <div class="lb-controls">
+        <button class="lb-btn" id="lb-prev" onclick="navigateCarousel(-1)" title="Previous (←)">&#8592;</button>
+        <div class="lb-dots" id="lb-dots"></div>
+        <button class="lb-btn" id="lb-next" onclick="navigateCarousel(1)" title="Next (→)">&#8594;</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <script>
+    // ── Chart ──────────────────────────────────────────
+    const isDark = matchMedia('(prefers-color-scheme: dark)').matches;
+    new Chart(document.getElementById('liftChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Extra-discount\nnav (views)', 'Foreign book\nprice (CTR)', 'Superstore\nBangla (ATC)', 'Mobile product\ncard (ATC)', 'Desktop order\nbtn (Purchase)'],
+        datasets: [{
+          data: [270, 100, 18, 9.2, 6.73],
+          backgroundColor: ['#1D9E75', '#1D9E75', '#1D9E75', '#1D9E75', '#1D9E75'],
+          borderRadius: 5,
+          borderSkipped: false
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: ctx => {
+                const v = ctx.raw;
+                if (v === 270) return 'Views +270% (×3.7 up)';
+                if (v === 100) return 'CTR ×2 (100% relative lift)';
+                return '+' + v.toFixed(2) + '%';
+              }
+            }
+          }
+        },
+        scales: {
+          x: { grid: { display: false }, ticks: { font: { size: 11 }, color: isDark ? '#6a6a62' : '#9a9a94', maxRotation: 0, autoSkip: false } },
+          y: { grid: { color: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }, ticks: { font: { size: 11 }, color: isDark ? '#6a6a62' : '#9a9a94', callback: v => v + '%' } }
+        }
+      }
+    });
+
+    // ── Carousel / Lightbox ─────────────────────────────
+    let currentGroup = [];
+    let currentIdx = 0;
+
+    function openCarousel(thumb) {
+      const group = thumb.dataset.group;
+      currentIdx = parseInt(thumb.dataset.index, 10);
+
+      // collect all thumbs in this group, in order
+      currentGroup = Array.from(document.querySelectorAll(`.ss-thumb[data-group="${group}"]`))
+        .sort((a, b) => a.dataset.index - b.dataset.index)
+        .map(t => ({
+          src: t.querySelector('img')?.src || '',
+          label: t.querySelector('.ss-label')?.textContent || '',
+          badge: t.querySelector('.ss-badge')?.textContent || '',
+        }));
+
+      renderCarousel();
+      document.getElementById('lightbox').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function renderCarousel() {
+      const item = currentGroup[currentIdx];
+      const img = document.getElementById('lb-img');
+      const placeholder = document.getElementById('lb-placeholder');
+
+      const hasSrc = item.src && !item.src.endsWith('//') && item.src !== window.location.href;
+      if (hasSrc) {
+        img.src = item.src;
+        img.alt = item.label;
+        img.style.display = 'block';
+        placeholder.style.display = 'none';
+      } else {
+        img.style.display = 'none';
+        placeholder.style.display = 'flex';
+      }
+
+      document.getElementById('lb-caption').textContent = item.label;
+      document.getElementById('lb-caption-sub').textContent = item.badge !== item.label ? item.badge : '';
+      document.getElementById('lb-counter').textContent = `${currentIdx + 1} / ${currentGroup.length}`;
+
+      document.getElementById('lb-prev').disabled = currentIdx === 0;
+      document.getElementById('lb-next').disabled = currentIdx === currentGroup.length - 1;
+
+      // dots
+      const dotsEl = document.getElementById('lb-dots');
+      dotsEl.innerHTML = '';
+      currentGroup.forEach((_, i) => {
+        const d = document.createElement('div');
+        d.className = 'lb-dot' + (i === currentIdx ? ' active' : '');
+        d.onclick = () => { currentIdx = i; renderCarousel(); };
+        dotsEl.appendChild(d);
+      });
+    }
+
+    function navigateCarousel(dir) {
+      const next = currentIdx + dir;
+      if (next < 0 || next >= currentGroup.length) return;
+      currentIdx = next;
+      renderCarousel();
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', e => {
+      const lb = document.getElementById('lightbox');
+      if (!lb.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') navigateCarousel(-1);
+      if (e.key === 'ArrowRight') navigateCarousel(1);
+    });
+
+    // Click outside to close
+    document.getElementById('lightbox').addEventListener('click', e => {
+      if (e.target === document.getElementById('lightbox')) closeLightbox();
+    });
+  </script>
+</body>
+
+</html>
