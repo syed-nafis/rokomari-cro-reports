@@ -2160,9 +2160,44 @@
               <div class="insight-icon ii-warn"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M7.5 3.5V8M7.5 10.5V11" stroke="#854F0B" stroke-width="1.6" stroke-linecap="round"/></svg></div>
               <div><div class="insight-body">English lifts product click-through (+3.8pp) and Bangla lifts ATC (+2.9pp), but both drop end-purchase rate (−1.8pp / −0.8pp). The title change moves users into the funnel but doesn't convert — keep running before concluding.</div></div>
             </div>
-            <div class="insight" style="margin-bottom:0;">
-              <div class="insight-icon ii-win"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M3.5 8L6 10.5L11.5 4.5" stroke="#166534" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-              <div><div class="insight-body"><strong>Mobile tells the opposite story.</strong> On the mobile-view segment (~190/arm, 7-day run) both variants <em>win</em> on purchase — Bangla +3.6pp (7.6% vs 4.0% control) and English +1.6pp (5.6%) — with Bangla also lifting ATC +7.4pp (24.1% vs 16.7%) and product-viewed +2.1pp. The title redesign clearly performs well on mobile; worth shipping mobile-only or re-running mobile at scale.</div></div>
+            <div class="insight" style="margin-bottom:0;background:#f0fdf4;border:1px solid #bbf7d0;border-left:3px solid #16a34a;border-radius:6px;padding:10px 12px;align-items:flex-start;">
+              <div class="insight-icon ii-win" style="margin-top:2px;flex-shrink:0;"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M3.5 8L6 10.5L11.5 4.5" stroke="#166534" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div><div class="insight-body">
+                <strong style="font-size:12px;color:#166534;">Granular view — Mobile-only segment</strong><br>
+                On the mobile-view segment (~190/arm, 7-day run) both variants <em>win</em> on purchase while the combined results above show losses. Bangla leads on every metric — worth shipping mobile-only or re-running at scale.
+                <table class="results-table" style="margin-top:8px;">
+                  <thead>
+                    <tr><th style="width:38%">Metric</th><th style="width:20%">Control</th><th>English</th><th>Bangla</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="td-metric">Participants</td>
+                      <td class="td-control">~190</td>
+                      <td><span class="td-metric">~190</span></td>
+                      <td><span class="td-metric">~190</span></td>
+                    </tr>
+                    <tr>
+                      <td class="td-metric">Product-viewed rate</td>
+                      <td class="td-control">48.5%</td>
+                      <td><span class="metric-chip chip-pos">+ 0.0%</span></td>
+                      <td><span class="metric-chip chip-pos">+ 2.1%</span></td>
+                    </tr>
+                    <tr>
+                      <td class="td-metric">ATC rate (of exposed)</td>
+                      <td class="td-control">16.7%</td>
+                      <td><span class="metric-chip chip-pos">+ 0.0%</span></td>
+                      <td><span class="metric-chip chip-best">+ 7.4%</span> (24.1%)</td>
+                    </tr>
+                    <tr>
+                      <td class="td-metric">Purchase rate (of exposed)</td>
+                      <td class="td-control">4.0%</td>
+                      <td><span class="metric-chip chip-pos">+ 1.6%</span> (5.6%)</td>
+                      <td><span class="metric-chip chip-best">+ 3.6%</span> (7.6%)</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <span style="display:block;margin-top:8px;font-size:12px;font-weight:600;color:#166534;">Bangla wins on mobile across all funnel stages — consider mobile-only ship or scaled re-run</span>
+              </div></div>
             </div>
           </div>
         </details>
@@ -3938,15 +3973,6 @@
           <div class="kpi-delta neutral">shipped in April, tracked in May</div>
         </div>
         <div class="kpi">
-          <div class="kpi-label">Status</div>
-          <div class="kpi-value" style="padding: 5px 0; font-size: 15px; line-height: 1.6;">
-            <span style="color:#1D9E75;">1 ✓</span> &middot;
-            <span style="color:#3B82F6;">1 📊</span> &middot;
-            <span style="color:#F59E0B;">1 ✕</span>
-          </div>
-          <div class="kpi-delta neutral">holding · measured · removed</div>
-        </div>
-        <div class="kpi">
           <div class="kpi-label">Active revenue impact</div>
           <div class="kpi-value pos" style="padding: 5px 0;">৳1,82,550</div>
           <div class="kpi-delta neutral" style="padding-left: 3px;">/ month (Extra-discount + QuickDeal)</div>
@@ -4067,14 +4093,14 @@
             </thead>
             <tbody>
               <tr>
-                <td class="td-metric">Section views <span style="color:var(--text3);">(view_extra-discount-books)</span></td>
+                <td class="td-metric">Page views <span style="color:var(--text3);">(view_extra-discount-books)</span></td>
                 <td class="td-control">5,469</td>
                 <td class="td-control">5,405</td>
                 <td class="td-control">10,487 <span class="metric-chip chip-best">× 1.9</span></td>
                 <td class="td-control">21,361</td>
               </tr>
               <tr>
-                <td class="td-metric">view_item <span style="color:var(--text3);">(clicked a book)</span></td>
+                <td class="td-metric">viewed a book <span style="color:var(--text3);">(clicked a book)</span></td>
                 <td class="td-control">2,724 <span class="metric-chip chip-neu">49.8%</span></td>
                 <td class="td-control">3,496 <span class="metric-chip chip-pos">64.7%</span></td>
                 <td class="td-control">6,627 <span class="metric-chip chip-pos">63.2%</span></td>
@@ -4088,7 +4114,7 @@
                 <td class="td-control">3,989 <span class="metric-chip chip-neu">18.7%</span></td>
               </tr>
               <tr>
-                <td class="td-metric">Purchase</td>
+                <td class="td-metric">Purchased a book</td>
                 <td class="td-control">150 <span class="metric-chip chip-neu">2.7%</span></td>
                 <td class="td-control">193 <span class="metric-chip chip-pos">3.6%</span></td>
                 <td class="td-control">322 <span class="metric-chip chip-neu">3.1%</span></td>
@@ -4207,7 +4233,7 @@
           </div>
         </details>
         <details class="exp-results" open>
-          <summary>Funnel — desktop</summary>
+          <summary>Funnel — MAY 18 - JUNE 9 (20 days)</summary>
           <table class="results-table">
             <thead>
               <tr>
@@ -4218,7 +4244,7 @@
             </thead>
             <tbody>
               <tr>
-                <td class="td-metric">Badge clicked <span style="color:var(--text3);">(test clicked)</span></td>
+                <td class="td-metric"> Related Products (with Badge) clicked <span style="color:var(--text3);">(test clicked)</span></td>
                 <td class="td-control">2,221 <span class="metric-chip chip-neu">100.0%</span></td>
                 <td class="td-control"><span class="metric-chip chip-pos">25.57%</span> → atc</td>
               </tr>
@@ -4228,7 +4254,7 @@
                 <td class="td-control"><span class="metric-chip chip-pos">19.01%</span> → purchase</td>
               </tr>
               <tr>
-                <td class="td-metric">Purchase</td>
+                <td class="td-metric">Purchased a product</td>
                 <td class="td-control">108 <span class="metric-chip chip-neu">4.9%</span></td>
                 <td class="td-control">—</td>
               </tr>
@@ -4296,7 +4322,7 @@
           <span class="status-pill" style="background:var(--amber-bg);color:var(--amber-dark);">✕ Removed from homepage</span>
         </div>
         <div
-          style="margin: 1rem 1.5rem 0; padding: 0.85rem 1.1rem; background: var(--amber-bg); border-radius: var(--radius); display: flex; gap: 12px; align-items: flex-start;">
+          style="margin: 1rem 1.5rem 0; padding: 0.85rem 1.1rem; background: var(--amber-bg); border-radius: var(--radius); display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px;">
           <div class="insight-icon ii-warn" style="margin-top:1px;"><svg width="15" height="15" viewBox="0 0 15 15" fill="none">
               <path d="M7.5 3.5V8M7.5 10.5V11" stroke="#854F0B" stroke-width="1.6" stroke-linecap="round" />
             </svg></div>
