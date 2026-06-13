@@ -1017,16 +1017,16 @@
         </div>
         <div class="kpi">
           <div class="kpi-label">Est. revenue impact</div>
-          <div class="kpi-value pos" style="padding: 5px 0;">৳5,78,544</div>
+          <div class="kpi-value pos" style="padding: 5px 0;">৳5,41,207</div>
           <div class="kpi-delta neutral" style="padding-left: 3px;">/ month (projected)</div>
         </div>
         <div class="kpi">
           <div class="kpi-label">Test outcomes</div>
           <div class="kpi-value" style="padding: 5px 0; font-size: 15px; line-height: 1.6;">
-            <span style="color:#1D9E75;">4 ✓</span> &middot;
+            <span style="color:#1D9E75;">5 ✓</span> &middot;
             <span style="color:#E5484D;">2 ✗</span> &middot;
             <span style="color:#3B82F6;">2 ↗</span> &middot;
-            <span style="color:#F59E0B;">5 ↻</span>
+            <span style="color:#F59E0B;">4 ↻</span>
           </div>
           <div class="kpi-delta neutral">positive · negative · scale · extend</div>
         </div>
@@ -1169,7 +1169,7 @@
             <div class="exp-hypo">Displaying the exact rating number on item cards reduces unnecessary browsing and
               increases ATC rate and purchase rate.</div>
             <div class="exp-meta">
-              <span class="tag">Mobile</span><span class="tag">27 days</span><span class="tag tag-variants">1 Variant</span>
+              <span class="tag">Mobile</span><span class="tag">27 days</span><span class="tag tag-variants">1 Variant</span><span class="tag tag-green">Scaled since last month</span>
             </div>
           </div>
           <span class="status-pill pill-ship">✓ Ship A</span>
@@ -1264,7 +1264,7 @@
               section.</div>
             <div class="exp-meta">
               <span class="tag">Mobile</span><span class="tag">Desktop</span><span class="tag">26 days</span><span
-                class="tag tag-variants">3 Variants</span>
+                class="tag tag-variants">3 Variants</span><span class="tag tag-green">Scaled since last month</span>
             </div>
           </div>
           <span class="status-pill pill-ship">✓ Ship C</span>
@@ -1355,7 +1355,7 @@
                 <th style="width:18%">Control value</th>
                 <th>A — Find Your Study Materials</th>
                 <th>B — Shop by Education Level</th>
-                <th>C — কার্টের একাডেমিক ক্যাটাগরি ★</th>
+                <th>C — জনপ্রিয় একাডেমিক ক্যাটাগরি ★</th>
               </tr>
             </thead>
             <tbody>
@@ -1439,7 +1439,7 @@
                 Variants</span>
             </div>
           </div>
-          <span class="status-pill pill-ship">✓ Ship C</span>
+          <span class="status-pill pill-ship">✓ Ship A</span>
         </div>
         <details class="exp-screenshots">
           <summary>Screenshots</summary>
@@ -1543,9 +1543,9 @@
               <tr>
                 <th style="width:30%">Metric</th>
                 <th style="width:20%">Control value</th>
-                <th>A — Dropdown Bottom</th>
+                <th>A — Dropdown Bottom ★</th>
                 <th>B — Separated</th>
-                <th>C — Dropdown Top ★</th>
+                <th>C — Dropdown Top</th>
               </tr>
             </thead>
             <tbody>
@@ -1559,14 +1559,16 @@
               <tr>
                 <td class="td-metric">Purchase rate (Goal)</td>
                 <td class="td-control">67.19% (1,065)</td>
-                <td><span class="metric-chip chip-pos">+ 1.43%</span> (+23 orders)</td>
+                <td><span class="metric-chip chip-best">+ 1.43%</span> (+23 orders)</td>
                 <td><span class="metric-chip chip-neg">− 0.37%</span> (-6 orders)</td>
                 <td><span class="metric-chip chip-pos">+ 1.80%</span> (+28 orders)</td>
               </tr>
               <tr>
                 <td class="td-metric">Net revenue impact / month</td>
-                <td class="td-control" colspan="3">AOV = ৳977.27<br><span>Variant C: +28 orders in 4d → 210/month</span></td>
-                <td><span class="metric-chip chip-best">৳2,05,227</span></td>
+                <td class="td-control">AOV = ৳977.27<br><span>+23 orders in 4d → 172/month</span></td>
+                <td><span class="metric-chip chip-best">৳1,67,890</span></td>
+                <td></td>
+                <td></td>
               </tr>
             </tbody>
           </table>
@@ -1580,7 +1582,7 @@
                     stroke-linejoin="round" />
                 </svg></div>
               <div>
-                <div class="insight-body">Variant C (Dropdown Top) leads with a +1.8pp purchase-rate lift (69.0% vs 67.2%), with Variant A (Dropdown Bottom) close behind at +1.4pp. Both dropdown layouts beat control — on this high-traffic checkout, that projects to the highest-impact result of the month.</div>
+                <div class="insight-body">Variant A (Dropdown Bottom) is the winner with a +1.4pp purchase-rate lift (68.6% vs 67.2%), projecting to <strong>৳1,67,890/month</strong> on this high-traffic checkout. Variant C (Dropdown Top) showed a higher raw lift (+1.8pp) but Variant A is the selected ship based on overall test evaluation.</div>
               </div>
             </div>
             <div class="insight" style="margin-bottom: 0;">
@@ -1762,6 +1764,14 @@
                 <span style="display:block;margin-top:8px;font-size:12px;font-weight:600;color:#166534;">Bangla incremental: 109 orders in 54d → 61/month → ৳59,613/month</span>
               </div></div>
             </div>
+            <div class="insight" style="margin-bottom: 0;">
+              <div class="insight-icon ii-warn"><svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path d="M7.5 3.5V8M7.5 10.5V11" stroke="#854F0B" stroke-width="1.6" stroke-linecap="round" />
+                </svg></div>
+              <div>
+                <div class="insight-body">This test was designed to keep our mobile-view consistent with our app UI. Due to a technical error, this test may have to be re-run if our UX team decides the change is not effective.</div>
+              </div>
+            </div>
           </div>
         </details>
       </div>
@@ -1777,7 +1787,7 @@
               <span class="tag tag-variants">2 Variants</span>
             </div>
           </div>
-          <span class="status-pill pill-running">Halted</span>
+          <span class="status-pill pill-ship">✓ Ship English</span>
         </div>
                 <details class="exp-screenshots" open>
           <summary>Screenshots</summary>
@@ -3801,7 +3811,7 @@
         <div>
           <div class="insight-title">Checkout-level tests delivered the biggest revenue this month</div>
           <div class="insight-body">The Order Summary dropdown redesign (Test 3, Variant C) lifted purchase rate
-            67.2% → 69.0% on high-intent checkout traffic and projects to <strong>৳2,05,227/month</strong> — the single
+            67.2% → 68.6% on high-intent checkout traffic and projects to <strong>৳1,67,890/month</strong> — the single
             largest win of the month. Optimising the bottom of the funnel, where users already intend to buy, returned
             more per visitor than any top-of-funnel acquisition tweak. Prioritise checkout and cart surfaces.</div>
         </div>
