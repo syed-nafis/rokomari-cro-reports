@@ -1,0 +1,342 @@
+{
+  "_README": {
+    "how_to_use": "Fill fields marked USER. Leave AI fields (\"\"/null) — I compute them. For each variant, paste the raw GA4 funnel exploration output into 'result' (the whole block, steps + counts + %). I parse the funnel steps, counts, and conversion from that text. Control = the variant named 'Control'.",
+    "you_fill": ["month", "aov", "tests[].title", "tests[].your_notes", "tests[].platform", "tests[].days_run", "tests[].goal_step", "tests[].variants[].name", "tests[].variants[].label", "tests[].variants[].result"],
+    "i_compute": ["hypothesis", "funnel steps + counts (parsed from result)", "per-step conversion %", "goal rate per variant", "lift (pp) vs control", "orders delta", "monthly order projection", "net revenue impact = projection × AOV", "winner variant", "status pill (Ship/Iterate/No-ship)", "2-3 key insights", "executive summary totals"],
+    "your_notes": "Free-text per test. Your opinion/context — what you saw, which variant you lean toward shipping and why, gotchas, qual feedback. I weigh it in winner pick + insights + hypothesis. Leave \"\" to skip.",
+    "goal_step": "Name of the funnel step that counts as the conversion goal (e.g. 'Purchases'). Must match a step label in your pasted result.",
+    "notes": "aov = average order value in ৳ (from GA4). Set aov_override on a test only if that test's AOV differs from the month default."
+  },
+
+  "month": "June 2026",
+  "report_title": "A/B Test Report",
+  "aov": 977.27,
+  "aov_note": "USER: paste June AOV from GA4",
+
+  "tests": [
+    {
+      "id": "test001",
+      "title": "otp vs password login",
+      "your_notes": "this test was made to test, if users prefer to login with otp more than, to see if original flow, where enter emial or phone number, then it prompts you to enter your password or login with otp is better than jsut showing hte login with otp button first",
+      "hypothesis": "",
+      "platform": "Mobile + desktop",
+      "days_run": 7,
+      "goal_step": "Purchases",
+      "aov_override": null,
+      "variants": [
+        {
+          "name": "Control",
+          "label": "",
+          "result": "Step
+Device category
+Active users (% of Step 1)
+Completion rate
+Abandonments
+Abandonment rate
+1	experiment_viewed: control	Total	9,457 (100%)	31.7%	6,459	68.3%
+mobile	7,731 (100%)	30.53%	5,371	69.47%
+desktop	1,690 (100%)	36.57%	1,072	63.43%
+tablet	58 (100%)	34.48%	38	65.52%
+smart tv	1 (100%)	0%	1	100%
+2	login complete	Total	2,998 (31.7%)	21.58%	2,351	78.42%
+mobile	2,360 (30.53%)	22.46%	1,830	77.54%
+desktop	618 (36.57%)	18.28%	505	81.72%
+tablet	20 (34.48%)	20%	16	80%
+smart tv	0 (0%)	-	-	-
+3	purchase	Total	647 (6.84%)	-	-	-
+mobile	530 (6.86%)	-	-	-
+desktop	113 (6.69%)	-	-	-
+tablet	4 (6.9%)	-	-	-
+smart tv	0 (0%)	-	-	-
+"
+        },
+        {
+          "name": "Variant A",
+          "label": "",
+          "result": "Step
+Device category
+Active users (% of Step 1)
+Completion rate
+Abandonments
+Abandonment rate
+1	experiment_viewed: a	Total	8,151 (100%)	30.13%	5,695	69.87%
+mobile	6,656 (100%)	29.67%	4,681	70.33%
+desktop	1,440 (100%)	32.43%	973	67.57%
+tablet	46 (100%)	30.43%	32	69.57%
+smart tv	1 (100%)	0%	1	100%
+2	login complete	Total	2,456 (30.13%)	22.72%	1,898	77.28%
+mobile	1,975 (29.67%)	24%	1,501	76%
+desktop	467 (32.43%)	17.99%	383	82.01%
+tablet	14 (30.43%)	0%	14	100%
+smart tv	0 (0%)	-	-	-
+3	purchase	Total	558 (6.85%)	-	-	-
+mobile	474 (7.12%)	-	-	-
+desktop	84 (5.83%)	-	-	-
+tablet	0 (0%)	-	-	-
+smart tv	0 (0%)	-	-	-"
+        }
+      ]
+    },
+    {
+      "id": "test002",
+      "title": "less-wordy-payment-section",
+      "your_notes": "this test was to see, if we remove the tittle and subtittle from payment method sections, does it improve or decrease conversion rate, as most users can understand the payment method from the tittle of each payment method",
+      "hypothesis": "",
+      "platform": "Mobile",
+      "days_run": 7,
+      "goal_step": "Purchases",
+      "aov_override": null,
+      "variants": [
+        {
+          "name": "Control",
+          "label": "",
+          "result": "Step
+Device category
+Active users (% of Step 1)
+Completion rate
+Abandonments
+Abandonment rate
+1	exp viewed: 0	Total	3,895 (100%)	65.57%	1,341	34.43%
+mobile	3,861 (100%)	65.63%	1,327	34.37%
+tablet	33 (100%)	60.61%	13	39.39%
+desktop	1 (100%)	0%	1	100%
+2	purchase	Total	2,554 (65.57%)	-	-	-
+mobile	2,534 (65.63%)	-	-	-
+tablet	20 (60.61%)	-	-	-
+desktop	0 (0%)	-	-	-
+"
+        },
+        {
+          "name": "Variant A",
+          "label": "",
+          "result": "Step
+Device category
+Active users (% of Step 1)
+Completion rate
+Abandonments
+Abandonment rate
+1	exp viewed: 1	Total	3,954 (100%)	65.45%	1,366	34.55%
+mobile	3,918 (100%)	65.52%	1,351	34.48%
+tablet	36 (100%)	58.33%	15	41.67%
+2	purchase	Total	2,588 (65.45%)	-	-	-
+mobile	2,567 (65.52%)	-	-	-
+tablet	21 (58.33%)	-	-	-"
+        }
+      ]
+    },
+    {
+      "id": "test003",
+      "title": "cart-page-trust-badges",
+      "your_notes": "we added 3 trust badges, 7-days happy-return, 100% original products, rokomari points",
+      "hypothesis": "",
+      "platform": "Mobile",
+      "days_run": 7,
+      "goal_step": "Purchases",
+      "aov_override": null,
+      "variants": [
+        { "name": "Control", "label": "", "result": "Step
+Device category
+Active users (% of Step 1)
+Completion rate
+Abandonments
+Abandonment rate
+1	exp viewed - control	Total	5,121 (100%)	40.71%	3,036	59.29%
+desktop	5,119 (100%)	40.73%	3,034	59.27%
+mobile	2 (100%)	0%	2	100%
+2	checkout	Total	2,085 (40.71%)	59.81%	838	40.19%
+desktop	2,085 (40.73%)	59.81%	838	40.19%
+mobile	0 (0%)	-	-	-
+3	purchase	Total	1,247 (24.35%)	-	-	-
+desktop	1,247 (24.36%)	-	-	-
+mobile	0 (0%)	-	-	-
+" },
+        { "name": "Variant A", "label": "", "result": "Step
+Device category
+Active users (% of Step 1)
+Completion rate
+Abandonments
+Abandonment rate
+1	exp viewed - a	Total	5,041 (100%)	40.33%	3,008	59.67%
+desktop	5,039 (100%)	40.35%	3,006	59.65%
+mobile	2 (100%)	0%	2	100%
+2	checkout	Total	2,033 (40.33%)	58.98%	834	41.02%
+desktop	2,033 (40.35%)	58.98%	834	41.02%
+mobile	0 (0%)	-	-	-
+3	purchase	Total	1,199 (23.78%)	-	-	-
+desktop	1,199 (23.79%)	-	-	-
+mobile	0 (0%)	-	-	-
+" }
+      ]
+    },
+    {
+      "id": "test004",
+      "title": "pdp-quickdeal-stock-urgency",
+      "your_notes": "showing low stock indicator if stock is less than 10 for quickDeal-elctronics items",
+      "hypothesis": "",
+      "platform": "Mobile",
+      "days_run": 7,
+      "goal_step": "Purchases",
+      "aov_override": null,
+      "variants": [
+        { "name": "Control", "label": "", "result": "Step
+Device category
+Active users (% of Step 1)
+Completion rate
+Abandonments
+Abandonment rate
+1	exp viewed - 0	Total	1,250 (100%)	12.8%	1,090	87.2%
+mobile	1,241 (100%)	12.89%	1,081	87.11%
+tablet	9 (100%)	0%	9	100%
+2	add-to-cart	Total	160 (12.8%)	17.5%	132	82.5%
+mobile	160 (12.89%)	17.5%	132	82.5%
+tablet	0 (0%)	-	-	-
+3	purchase	Total	28 (2.24%)	-	-	-
+mobile	28 (2.26%)	-	-	-
+tablet	0 (0%)	-	-	-" },
+        { "name": "Variant A", "label": "", "result": "Step
+Device category
+Active users (% of Step 1)
+Completion rate
+Abandonments
+Abandonment rate
+1	exp viewed - 1	Total	1,292 (100%)	15.17%	1,096	84.83%
+mobile	1,289 (100%)	15.13%	1,094	84.87%
+tablet	3 (100%)	33.33%	2	66.67%
+2	add-to-cart	Total	196 (15.17%)	14.8%	167	85.2%
+mobile	195 (15.13%)	14.87%	166	85.13%
+tablet	1 (33.33%)	0%	1	100%
+3	purchase	Total	29 (2.24%)	-	-	-
+mobile	29 (2.25%)	-	-	-
+tablet	0 (0%)	-	-	-
+" }
+      ]
+    },
+    {
+      "id": "test005",
+      "title": "cart_page_quantity_left_quick_deal",
+      "your_notes": "",
+      "hypothesis": "",
+      "platform": "Mobile",
+      "days_run": 7,
+      "goal_step": "Purchases",
+      "aov_override": null,
+      "variants": [
+        { "name": "Control", "label": "", "result": "Step
+Device category
+Active users (% of Step 1)
+Completion rate
+Abandonments
+Abandonment rate
+1	exp viewed - control	Total	390 (100%)	17.95%	320	82.05%
+mobile	383 (100%)	18.02%	314	81.98%
+tablet	7 (100%)	14.29%	6	85.71%
+2	checkout	Total	70 (17.95%)	41.43%	41	58.57%
+mobile	69 (18.02%)	42.03%	40	57.97%
+tablet	1 (14.29%)	0%	1	100%
+3	purchase	Total	29 (7.44%)	-	-	-
+mobile	29 (7.57%)	-	-	-
+tablet	0 (0%)	-	-	-" },
+        { "name": "Variant A", "label": "", "result": "Step
+Device category
+Active users (% of Step 1)
+Completion rate
+Abandonments
+Abandonment rate
+1	exp viewed - a	Total	336 (100%)	18.15%	275	81.85%
+mobile	331 (100%)	18.43%	270	81.57%
+tablet	5 (100%)	0%	5	100%
+2	checkout	Total	61 (18.15%)	32.79%	41	67.21%
+mobile	61 (18.43%)	32.79%	41	67.21%
+tablet	0 (0%)	-	-	-
+3	purchase	Total	20 (5.95%)	-	-	-
+mobile	20 (6.04%)	-	-	-
+tablet	0 (0%)	-	-	-
+" }
+      ]
+    },
+    {
+      "id": "test006",
+      "title": "",
+      "your_notes": "",
+      "hypothesis": "",
+      "platform": "Mobile",
+      "days_run": 7,
+      "goal_step": "Purchases",
+      "aov_override": null,
+      "variants": [
+        { "name": "Control", "label": "", "result": "" },
+        { "name": "Variant A", "label": "", "result": "" }
+      ]
+    },
+    {
+      "id": "test007",
+      "title": "",
+      "your_notes": "",
+      "hypothesis": "",
+      "platform": "Mobile",
+      "days_run": 7,
+      "goal_step": "Purchases",
+      "aov_override": null,
+      "variants": [
+        { "name": "Control", "label": "", "result": "" },
+        { "name": "Variant A", "label": "", "result": "" }
+      ]
+    },
+    {
+      "id": "test008",
+      "title": "",
+      "your_notes": "",
+      "hypothesis": "",
+      "platform": "Mobile",
+      "days_run": 7,
+      "goal_step": "Purchases",
+      "aov_override": null,
+      "variants": [
+        { "name": "Control", "label": "", "result": "" },
+        { "name": "Variant A", "label": "", "result": "" }
+      ]
+    },
+    {
+      "id": "test009",
+      "title": "",
+      "your_notes": "",
+      "hypothesis": "",
+      "platform": "Mobile",
+      "days_run": 7,
+      "goal_step": "Purchases",
+      "aov_override": null,
+      "variants": [
+        { "name": "Control", "label": "", "result": "" },
+        { "name": "Variant A", "label": "", "result": "" }
+      ]
+    },
+    {
+      "id": "test010",
+      "title": "",
+      "your_notes": "",
+      "hypothesis": "",
+      "platform": "Mobile",
+      "days_run": 7,
+      "goal_step": "Purchases",
+      "aov_override": null,
+      "variants": [
+        { "name": "Control", "label": "", "result": "" },
+        { "name": "Variant A", "label": "", "result": "" }
+      ]
+    },
+    {
+      "id": "test011",
+      "title": "",
+      "your_notes": "",
+      "hypothesis": "",
+      "platform": "Mobile",
+      "days_run": 7,
+      "goal_step": "Purchases",
+      "aov_override": null,
+      "variants": [
+        { "name": "Control", "label": "", "result": "" },
+        { "name": "Variant A", "label": "", "result": "" }
+      ]
+    }
+  ]
+}
