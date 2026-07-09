@@ -300,8 +300,8 @@ mobile	0 (0%)	-	-	-
     },
     {
       "id": "test007",
-      "title": "",
-      "your_notes": "",
+      "title": "islamic-category-subcategory-dropdown-close",
+      "your_notes": "in islamic cateogry page, there is a dropdown, when openedit cant be closed again, the subcategory dropdown closes when the user clicks the search bar",
       "hypothesis": "",
       "platform": "Mobile",
       "days_run": 7,
@@ -355,8 +355,8 @@ desktop	13 (34.21%)	-	-	-
     },
     {
       "id": "test009",
-      "title": "",
-      "your_notes": "",
+      "title": "islamic-price-filter-pages-tittle",
+      "your_notes": "there were 4 prie category sections, matching their tittles to their price category like Islamic books - under 299 etc.",
       "hypothesis": "",
       "platform": "Mobile",
       "days_run": 7,
@@ -369,8 +369,8 @@ desktop	13 (34.21%)	-	-	-
     },
     {
       "id": "test010",
-      "title": "",
-      "your_notes": "",
+      "title": "academic-college-books-banglaversion-button",
+      "your_notes": " there is a button for english version books, and it always showned english version books button even when clicked, thus when clicked change it to bangla version books, then from bangla version books you can goto english version books",
       "hypothesis": "",
       "platform": "Mobile",
       "days_run": 7,
@@ -383,7 +383,7 @@ desktop	13 (34.21%)	-	-	-
     },
     {
       "id": "test011",
-      "title": "",
+      "title": "ordertrack - add to cart - goto cart- change",
       "your_notes": "",
       "hypothesis": "",
       "platform": "Mobile",

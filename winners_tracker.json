@@ -65,7 +65,19 @@
         ]
       },
       "history": [],
-      "june_result": ""
+      "june_result": "Step
+Device category
+Active users (% of Step 1)
+Completion rate
+Abandonments
+Abandonment rate
+1	test clicked	Total	2,472 (100.0%)	29.17%	1,751	70.83%
+desktop	2,472 (100.0%)	29.17%	1,751	70.83%
+2	atc	Total	721 (29.2%)	25.38%	538	74.62%
+desktop	721 (29.2%)	25.38%	538	74.62%
+3	puchase	Total	183 (7.4%)	-	-	-
+desktop	183 (7.4%)	-	-	-
+" // window june 15 - july 8
     },
     {
       "id": "apr3",
@@ -107,7 +119,19 @@
       "aov": 977.27,
       "at_ship": { "purchase_rate_lift_pp": 1.4, "revenue_month": 167890 },
       "history": [],
-      "june_result": ""
+      "june_result": "Step
+Device category
+Active users (% of Step 1)
+Completion rate
+Abandonments
+Abandonment rate
+1	exp viewed	Total	19,441 (100.0%)	69.69%	5,892	30.31%
+mobile	19,302 (100.0%)	69.79%	5,831	30.21%
+tablet	138 (100.0%)	57.25%	59	42.75%
+2	purchase	Total	13,549 (69.7%)	-	-	-
+mobile	13,471 (69.8%)	-	-	-
+tablet	79 (57.2%)	-	-	-
+"
     },
     {
       "id": "may2",
@@ -120,7 +144,27 @@
       "aov": 977.27,
       "at_ship": { "checkout_rate_lift_pp": 2.1, "revenue_month": 76227 },
       "history": [],
-      "june_result": ""
+      "june_result": "Step
+Device category
+Active users (% of Step 1)
+Completion rate
+Abandonments
+Abandonment rate
+1	view_cart	Total	32,863 (100.0%)	48.27%	17,001	51.73%
+mobile	26,133 (100.0%)	50.45%	12,950	49.55%
+desktop	6,552 (100.0%)	39.19%	3,984	60.81%
+tablet	211 (100.0%)	45.5%	115	54.5%
+smart tv	1 (100.0%)	0%	1	100%
+2	checkout	Total	15,862 (48.3%)	46.17%	8,538	53.83%
+mobile	13,183 (50.4%)	43.81%	7,408	56.19%
+desktop	2,568 (39.2%)	58.53%	1,065	41.47%
+tablet	96 (45.5%)	46.88%	51	53.13%
+smart tv	0 (0.0%)	-	-	-
+3	purchase	Total	7,324 (22.3%)	-	-	-
+mobile	5,775 (22.1%)	-	-	-
+desktop	1,503 (22.9%)	-	-	-
+tablet	45 (21.3%)	-	-	-
+smart tv	0 (0.0%)	-	-	-"
     },
     {
       "id": "may3",
@@ -133,7 +177,32 @@
       "aov": 977.27,
       "at_ship": { "revenue_month": 168090 },
       "history": [],
-      "june_result": ""
+      "june_result": "Step
+Device category
+Active users (% of Step 1)
+Completion rate
+Abandonments
+Abandonment rate
+1	exp-viewed - a	Total	162,456 (100.0%)	35.55%	104,707	64.45%
+mobile	160,985 (100.0%)	35.37%	104,037	64.63%
+tablet	1,594 (100.0%)	38.02%	988	61.98%
+smart tv	22 (100.0%)	31.82%	15	68.18%
+desktop	7 (100.0%)	0%	7	100%
+2	exp-clicked	Total	57,749 (35.5%)	32.69%	38,870	67.31%
+mobile	56,948 (35.4%)	32.84%	38,245	67.16%
+tablet	606 (38.0%)	29.04%	430	70.96%
+smart tv	7 (31.8%)	0%	7	100%
+desktop	0 (0.0%)	-	-	-
+3	atc	Total	18,879 (11.6%)	34.2%	12,423	65.8%
+mobile	18,703 (11.6%)	34.3%	12,288	65.7%
+tablet	176 (11.0%)	23.3%	135	76.7%
+smart tv	0 (0.0%)	-	-	-
+desktop	0 (0.0%)	-	-	-
+4	purchase	Total	6,456 (4.0%)	-	-	-
+mobile	6,415 (4.0%)	-	-	-
+tablet	41 (2.6%)	-	-	-
+smart tv	0 (0.0%)	-	-	-
+desktop	0 (0.0%)	-	-	-"
     },
     {
       "id": "may4",
@@ -146,7 +215,17 @@
       "aov": 977.27,
       "at_ship": { "ctr_before_pct": 3.1, "ctr_after_pct": "16-20", "revenue_month": 35182 },
       "history": [],
-      "june_result": ""
+      "june_result": "Step
+Active users (% of Step 1)
+Completion rate
+Abandonments
+Abandonment rate
+1	bangla viewed	4,849 (100.0%)	17.84%	3,984	82.16%
+2	clicked	865 (17.8%)	51.1%	423	48.9%
+3	viewed a book	442 (9.1%)	47.74%	231	52.26%
+4	atc	211 (4.4%)	28.91%	150	71.09%
+5	purchase	61 (1.3%)	-	-	-
+"
     },
     {
       "id": "may5",
@@ -159,7 +238,7 @@
       "aov": 977.27,
       "at_ship": { "purchase_rate_lift_pct": 59, "revenue_month": 93818 },
       "history": [],
-      "june_result": ""
+      "june_result": " this test was reverted, will get it live to track its effectiveness again, but this pattern is in genaral effective. recent order-track exp also proves it"
     }
   ]
 }
