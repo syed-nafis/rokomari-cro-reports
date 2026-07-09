@@ -1,0 +1,165 @@
+{
+  "_README": {
+    "purpose": "Rolling 3-month winners tracker for June report. April + May shipped winners, tracked into June production.",
+    "how_to_use": "Prefilled fields (name, shipped, status, at_ship, history) come from the April/May reports — leave them unless wrong. For each winner paste the June GA4 funnel block into 'june_result'. I parse it, compute the June rate, compare vs at-ship, and label held / decayed / grew + updated revenue.",
+    "you_fill": ["winners[].june_result (paste GA4)", "optionally correct any prefilled value"],
+    "i_compute": ["June goal rate from june_result", "retention vs at-ship (held/decayed/grew, %)", "updated net revenue / month", "status pill update", "1-line insight per winner", "tracker exec-summary totals"],
+    "status_values": "Holding | Measured | Removed | Shipped (awaiting first prod check)",
+    "note": "Foreign-book price was removed from homepage — no June data expected; leave june_result empty, stays archived."
+  },
+
+  "aov_default": 977.27,
+
+  "winners": [
+    {
+      "id": "apr1",
+      "name": "Extra-discount books — navigation visibility",
+      "shipped": "Apr 2026",
+      "platform": ["Mobile", "Desktop"],
+      "goal_step": "Purchases",
+      "status": "Holding",
+      "aov": 466.68,
+      "at_ship": { "section_views": 5405, "purchases": 193, "purchase_rate_pct": 3.6 },
+      "history": [
+        { "month": "Mar", "note": "pre-ship baseline", "section_views": 5469, "viewed_book": 2724, "viewed_book_pct": 49.8, "atc": 772, "purchases": 150, "purchase_rate_pct": 2.7 },
+        { "month": "Apr", "section_views": 5405, "viewed_book": 3496, "viewed_book_pct": 64.7, "atc": 1265, "purchases": 193, "purchase_rate_pct": 3.6 },
+        { "month": "May", "section_views": 10487, "viewed_book": 6627, "viewed_book_pct": 63.2, "atc": 1952, "purchases": 322, "purchase_rate_pct": 3.1 }
+      ],
+      "may_update": {
+        "status": "Holding",
+        "revenue_month": 80269,
+        "captured_apr_may": 100336,
+        "incremental_orders_apr_may": 215,
+        "notes": [
+          "Section traffic ~doubled in May (10,487 views vs ~5,400/mo baseline)",
+          "Browse-to-product conversion held 63-65% (vs 49.8% pre-ship)",
+          "Purchase rate held ~3%; volume grew 150 → 322, ATC/purchase softened slightly from April peak"
+        ]
+      },
+      "june_result": ""
+    },
+    {
+      "id": "apr2",
+      "name": "QuickDeal Badge — Related Products section",
+      "shipped": "Apr 2026",
+      "platform": ["Desktop"],
+      "goal_step": "Purchases",
+      "status": "Measured",
+      "aov": 947.05,
+      "no_control_arm": true,
+      "at_ship": { "note": "No April ship numbers captured — first measured in May window." },
+      "may_update": {
+        "status": "Measured",
+        "window": "May 18 – Jun 9 (20d)",
+        "badge_clicks": 2221,
+        "atc": 568,
+        "atc_rate_pct": 25.6,
+        "purchases": 108,
+        "purchase_rate_pct": 4.9,
+        "revenue_attributed": 102281,
+        "revenue_type": "gross (no control arm — not incremental)",
+        "notes": [
+          "2,221 desktop clicks pulled into funnel; ~1 in 4 (25.6%) reached ATC, 4.9% purchased",
+          "AOV ৳947 well above site average → 108 purchases carry ~৳1.02L attributed",
+          "Biggest drop-off click→ATC (74.4% abandon); no control arm → add holdout to get true incremental lift"
+        ]
+      },
+      "history": [],
+      "june_result": ""
+    },
+    {
+      "id": "apr3",
+      "name": "Foreign book price-category — section redesign",
+      "shipped": "Apr 2026",
+      "platform": ["Desktop", "Mobile"],
+      "goal_step": "Purchases",
+      "status": "Removed",
+      "aov": 682.20,
+      "winning_variant": "Light",
+      "at_ship": {
+        "participants": { "control": 72928, "filled": 51963, "light": 45634 },
+        "section_ctr": { "control_pct": 1.52, "control_clicks": 1199, "filled_lift": "×2.91", "filled_clicks": 2166, "light_lift": "×2.45", "light_clicks": 1701 },
+        "purchase_rate": { "control_pct": 0.07, "control_orders": 54, "filled_extra_orders": 35, "light_extra_orders": 43 },
+        "revenue_month": { "filled": 47754, "light": 58669 }
+      },
+      "may_update": {
+        "status": "Removed from homepage",
+        "revenue_month": 0,
+        "notes": [
+          "Both variants tested positive, but section removed during homepage redesign — lift no longer realised",
+          "High engagement in 'Under 99' & 'Free Shipping' categories (~×4 others) — strong clearance-merchandising signal",
+          "Winning Light variant archived for re-introduction if section returns"
+        ]
+      },
+      "history": [],
+      "note": "Removed from homepage in redesign — not live. Leave june_result empty.",
+      "june_result": ""
+    },
+
+    {
+      "id": "may1",
+      "name": "Checkout — Order Summary Dropdown & Redesign",
+      "shipped": "May 2026",
+      "platform": ["Mobile"],
+      "goal_step": "Purchases",
+      "status": "Shipped",
+      "shipped_variant": "A (Dropdown Bottom)",
+      "aov": 977.27,
+      "at_ship": { "purchase_rate_lift_pp": 1.4, "revenue_month": 167890 },
+      "history": [],
+      "june_result": ""
+    },
+    {
+      "id": "may2",
+      "name": "You-Saving Nudge — Cart & Checkout",
+      "shipped": "May 2026",
+      "platform": ["Mobile"],
+      "goal_step": "Checkout",
+      "status": "Shipped",
+      "shipped_variant": "English",
+      "aov": 977.27,
+      "at_ship": { "checkout_rate_lift_pp": 2.1, "revenue_month": 76227 },
+      "history": [],
+      "june_result": ""
+    },
+    {
+      "id": "may3",
+      "name": "Item cards — show exact rating number",
+      "shipped": "May 2026",
+      "platform": ["Mobile"],
+      "goal_step": "Purchases",
+      "status": "Shipped",
+      "shipped_variant": "A",
+      "aov": 977.27,
+      "at_ship": { "revenue_month": 168090 },
+      "history": [],
+      "june_result": ""
+    },
+    {
+      "id": "may4",
+      "name": "Featured category — intent-driven title copy",
+      "shipped": "May 2026",
+      "platform": ["Mobile"],
+      "goal_step": "Purchases",
+      "status": "Shipped",
+      "shipped_variant": "C",
+      "aov": 977.27,
+      "at_ship": { "ctr_before_pct": 3.1, "ctr_after_pct": "16-20", "revenue_month": 35182 },
+      "history": [],
+      "june_result": ""
+    },
+    {
+      "id": "may5",
+      "name": "Superstore ATC button — English vs Bangla",
+      "shipped": "May 2026",
+      "platform": ["Mobile"],
+      "goal_step": "Purchases",
+      "status": "Shipped",
+      "shipped_variant": "English (Go to Cart)",
+      "aov": 977.27,
+      "at_ship": { "purchase_rate_lift_pct": 59, "revenue_month": 93818 },
+      "history": [],
+      "june_result": ""
+    }
+  ]
+}

@@ -256,16 +256,46 @@ tablet	0 (0%)	-	-	-
     },
     {
       "id": "test006",
-      "title": "",
-      "your_notes": "",
+      "title": "islamic-recently-released-tittle-update",
+      "your_notes": "changes it fom revently released products to recently released islamic books",
       "hypothesis": "",
       "platform": "Mobile",
       "days_run": 7,
       "goal_step": "Purchases",
       "aov_override": null,
       "variants": [
-        { "name": "Control", "label": "", "result": "" },
-        { "name": "Variant A", "label": "", "result": "" }
+        { "name": "Control", "label": "", "result": "Step
+Device category
+Active users (% of Step 1)
+Completion rate
+Abandonments
+Abandonment rate
+1	exp viewed - 0	Total	37 (100%)	67.57%	12	32.43%
+desktop	36 (100%)	69.44%	11	30.56%
+mobile	1 (100%)	0%	1	100%
+2	viewed: book	Total	25 (67.57%)	0%	25	100%
+desktop	25 (69.44%)	0%	25	100%
+mobile	0 (0%)	-	-	-
+3	add-to-cart	Total	0 (0%)	-	-	-
+desktop	0 (0%)	-	-	-
+mobile	0 (0%)	-	-	-
+" },
+        { "name": "Variant A", "label": "", "result": "Step
+Device category
+Active users (% of Step 1)
+Completion rate
+Abandonments
+Abandonment rate
+1	exp viewed - 1	Total	41 (100%)	73.17%	11	26.83%
+desktop	40 (100%)	75%	10	25%
+mobile	1 (100%)	0%	1	100%
+2	viewed: book	Total	30 (73.17%)	0%	30	100%
+desktop	30 (75%)	0%	30	100%
+mobile	0 (0%)	-	-	-
+3	add-to-cart	Total	0 (0%)	-	-	-
+desktop	0 (0%)	-	-	-
+mobile	0 (0%)	-	-	-
+" }
       ]
     },
     {
@@ -284,7 +314,7 @@ tablet	0 (0%)	-	-	-
     },
     {
       "id": "test008",
-      "title": "",
+      "title": "bangla tittle for books in your budget",
       "your_notes": "",
       "hypothesis": "",
       "platform": "Mobile",
@@ -292,8 +322,35 @@ tablet	0 (0%)	-	-	-
       "goal_step": "Purchases",
       "aov_override": null,
       "variants": [
-        { "name": "Control", "label": "", "result": "" },
-        { "name": "Variant A", "label": "", "result": "" }
+        { "name": "Control", "label": "", "result": "Step
+Device category
+Active users (% of Step 1)
+Completion rate
+Abandonments
+Abandonment rate
+1	exp viewed - 0	Total	40 (100%)	67.5%	13	32.5%
+desktop	38 (100%)	71.05%	11	28.95%
+mobile	2 (100%)	0%	2	100%
+2	view-item:	Total	27 (67.5%)	22.22%	21	77.78%
+desktop	27 (71.05%)	22.22%	21	77.78%
+mobile	0 (0%)	-	-	-
+3	ad to cart	Total	6 (15%)	-	-	-
+desktop	6 (15.79%)	-	-	-
+mobile	0 (0%)	-	-	-
+" },
+        { "name": "Variant A", "label": "", "result": "Step
+Device category
+Active users (% of Step 1)
+Completion rate
+Abandonments
+Abandonment rate
+1	exp viewed - 1	Total	38 (100%)	73.68%	10	26.32%
+desktop	38 (100%)	73.68%	10	26.32%
+2	view-item:	Total	28 (73.68%)	46.43%	15	53.57%
+desktop	28 (73.68%)	46.43%	15	53.57%
+3	add to cart	Total	13 (34.21%)	-	-	-
+desktop	13 (34.21%)	-	-	-
+" }
       ]
     },
     {
@@ -334,8 +391,51 @@ tablet	0 (0%)	-	-	-
       "goal_step": "Purchases",
       "aov_override": null,
       "variants": [
-        { "name": "Control", "label": "", "result": "" },
-        { "name": "Variant A", "label": "", "result": "" }
+        { "name": "Control", "label": "", "result": "Step
+Device category
+Active users (% of Step 1)
+Completion rate
+Abandonments
+Abandonment rate
+1	exp viewed - 0	Total	1,182 (100%)	23.18%	908	76.82%
+mobile	802 (100%)	21.45%	630	78.55%
+desktop	373 (100%)	26.81%	273	73.19%
+tablet	7 (100%)	28.57%	5	71.43%
+2	view cart	Total	274 (23.18%)	33.21%	183	66.79%
+mobile	172 (21.45%)	32.56%	116	67.44%
+desktop	100 (26.81%)	34%	66	66%
+tablet	2 (28.57%)	50%	1	50%
+3	checkout	Total	91 (7.7%)	70.33%	27	29.67%
+mobile	56 (6.98%)	73.21%	15	26.79%
+desktop	34 (9.12%)	67.65%	11	32.35%
+tablet	1 (14.29%)	0%	1	100%
+4	purchase	Total	64 (5.41%)	-	-	-
+mobile	41 (5.11%)	-	-	-
+desktop	23 (6.17%)	-	-	-
+tablet	0 (0%)	-	-	-
+" },
+        { "name": "Variant A", "label": "", "result": "Step
+Device category
+Active users (% of Step 1)
+Completion rate
+Abandonments
+Abandonment rate
+1	exp viewed - 1	Total	1,221 (100%)	26.62%	896	73.38%
+mobile	850 (100%)	23.76%	648	76.24%
+desktop	364 (100%)	33.79%	241	66.21%
+tablet	7 (100%)	0%	7	100%
+2	view cart	Total	325 (26.62%)	36%	208	64%
+mobile	202 (23.76%)	36.14%	129	63.86%
+desktop	123 (33.79%)	35.77%	79	64.23%
+tablet	0 (0%)	-	-	-
+3	checkout	Total	117 (9.58%)	68.38%	37	31.62%
+mobile	73 (8.59%)	69.86%	22	30.14%
+desktop	44 (12.09%)	65.91%	15	34.09%
+tablet	0 (0%)	-	-	-
+4	purchase	Total	80 (6.55%)	-	-	-
+mobile	51 (6%)	-	-	-
+desktop	29 (7.97%)	-	-	-
+tablet	0 (0%)	-	-	-" }
       ]
     }
   ]
